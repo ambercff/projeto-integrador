@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0; 
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+@media screen and (min-width: 1024px) {
+
+    .main-login {
+        width: 100vw; 
+        height: 100vh;
+        background-image: url('../imagens/background.jpg');
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .left-login, .right-login {
+        width: 30vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .left-login {
+        width: 400px;
+        height: 150px;
+    }
+
+    .left-login img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .card-login {
+        width: 400px;
+        height: 450px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 30px 35px;
+        background-color: #F5F5F5;
+        border-radius: 10px;
+        box-shadow: 0 10px 40px #00000056;
+    }
+
+    .card-login h1 {
+        color: #172A3A;
+        font-size: 40px;
+        font-weight: 800;
+        margin-top: 30px;
+    }
+
+    .textfield {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 10px 0px;
+    }
+
+    .textfield input{
+        width: 300px;
+        border: none;
+        border-radius: 5px;
+        padding: 15px;
+        font-size: 12pt;
+        box-shadow: 0 10px 40px #00000056;
+        box-sizing: border-box;
+    }
+
+    .btn-login {
+        width: 300px;
+        height: 40px;
+        background-color: #172A3A;
+        border: none;
+        color: #F5F5F5;
+        cursor: pointer;
+        font-size: 18px;
+        border-radius: 5px;
+    }
+
+    .container-btn  {
+        padding-bottom: 40px;
+    }
+
+    .informations {
+        text-align: center;
+    }
+
+    .informations a {
+        text-decoration: none;
+        color: #3C87C5;
+    }
+
+    .container-input {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height:260px;
+    }
+}
+
+
+@media screen and (max-width: 1023px) {
+    body {
+        background-size: cover;
+        background-image: url('../imagens/background-celular.svg');
+    }
+
+    .main-login {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    .card-login {
+        width: 230px;
+        height: 355px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 30px 35px;
+        background-color: #F5F5F5;
+        border-radius: 10px;
+        box-shadow: 0 10px 40px #00000056;
+    }
+
+
+    .right-login {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .textfield {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 10px 0px;
+    }
+
+    .textfield input{
+        width: 200px;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 12pt;
+        box-shadow: 0 10px 40px #00000056;
+        box-sizing: border-box;
+    }
+
+    .btn-login {
+        width: 200px;
+        height: 35px;
+        background-color: #172A3A;
+        border: none;
+        color: #F5F5F5;
+        cursor: pointer;
+        font-size: 18px;
+        border-radius: 5px;
+    }
+
+    .container-btn  {
+        padding-bottom: 20px;
+        justify-content: center;
+        display: flex;
+    }
+
+    .informations {
+        text-align: center;
+    }
+
+    .informations a {
+        text-decoration: none;
+        color: #3C87C5;
+    }
+
+    .container-input {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height:225px;
+    }
+
+    .left-login {
+        width: 280px;
+        height: 100px;
+    }
+
+    .left-login img {
+        width: 100%;
+        height: 100%;
+    }
+}
