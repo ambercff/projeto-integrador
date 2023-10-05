@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/be07557a2e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/styleCadastro.css">
+    <title>Cadastro</title>
+</head>
+<body>
+    <div class="main-login">
+        <div class="left-login">
+            <h1> <img src="/imagens/logo_branca.png"> </h1>
+        </div>
+        <div class="right-login">
+            <div class="card-login">
+                <h1> CADASTRO </h1>
+                <form action="cadastro" method="POST">
+                    <div class="container-input">
+                        <div class="textfield">
+                            <label for="email"> Nome completo </label>
+                            <input type="text" name="nome" placeholder="Insira seu nome completo" autocomplete="off">
+                        </div>
+    
+                       <div class="textfield">
+                            <label for="email"> E-mail </label>
+                            <input type="email" name="email" placeholder="Insira seu e-mail" autocomplete="off">
+                        </div>
+                    
+                        <div class="textfield">
+                            <label for="senha"> Senha </label>
+                            <input type="password" name="senha" id="senha" placeholder="Insira sua senha" autocomplete="off">
+                        </div>
+
+
+                        
+                        <div class="textfield">
+                            <label for="senha"> Confirme sua senha </label>
+                            <input type="password" name="confSenha" id="confSenha" placeholder="Confirme sua senha" autocomplete="off">
+                        </div>  
+
+                    </div>
+                    
+                    <div class="container-btn">
+                        <input type="submit" class="btn-login" value="Cadastro">  
+                    </div>
+                    
+                    <div class="informations">
+                        <p> Já tem conta? <a href="login.html"> Entre aqui </a> </p>
+                        <a href="/"> Voltar para home </a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

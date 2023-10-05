@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/be07557a2e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/styleCart.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title> Carrinho </title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="imagens/tigre.png">
+        </div>
+
+        <input type="checkbox" id="nav_check" hidden>
+        <nav>
+
+            <div class="logo">
+                <img src="imagens/tigre.png">
+            </div>
+
+            <ul>
+                <li> <a href="#"> Mulheres </a> </li>
+                <li> <a href="#"> Homens </a> </li>
+                <li> <a href="#"> Infantil </a> </li>
+                <li> <a href="#"> Esportes </a> </li>
+                <li>
+                    <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                </li>
+                <% if (!user) {%>
+                    <li>
+                        <div class="icons">
+                            <a href="cart"> <i class="fa-solid fa-cart-shopping"></i> </a>
+                            <a href="login"> <i class="fa-regular fa-user"></i> </a>
+                        </div>
+                    </li>
+                <% } %>
+                <% if (user) {%>
+                    <li>
+                        <div class="icons">
+                            <a href="cart"> <i class="fa-solid fa-cart-shopping"></i> </a>
+                            <div class="logout">
+                                <p>Olá, <%= user.nome %>!</p>
+                                <form action="logout" method="POST">
+                                    <button type="submit"><i class="fa-solid fa-right-from-bracket"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                <% } %>
+            </ul>
+
+
+        </nav>
+        <label for="nav_check" class="hamburguer">
+            <div></div>
+            <div></div>
+            <div></div>
+        </label>
+</header>   
+        <div class="column-product">
+            <% if (user.cart.compras.length === 0) {%>
+                <div class="cart-empty">
+                    <p> O carrinho está vazio!</p>
+                    <i class="fa-regular fa-rectangle-xmark"></i>
+                </div>
+            </div>
+
+            <% } else {%>
+            <% for (const compra of user.cart.compras) { %>
+                    <div class="container-product">
+                        <div class="infos-product">                   
+                            <div class="img-product">
+                                <img src="./imagens/<%=compra.product.image%>">
+                            </div>
+                            <div class="text-product">
+                                <div class="title-product">
+                                    <h1> <%=compra.product.name%></h1>
+                                </div>
+                                <div class="price-product">
+                                    <p class="price"> R$ <%= (compra.product.price).toFixed(2) %></p>
+                                    <div class="forma-pagamento">
+                                        <p> em até 6x sem juros de R$ <%= (compra.product.price / 6).toFixed(2) %></p>
+                                        <p class="text-blue"> formas de pagamento </p>
+                                    </div>
+                                    <div class="qtde">
+                                        <p> Quantidade: </p>
+                                        <input type="number" step="1" value="1">
+                                    </div>
+                                </div>
+                                <div class="remove-product">
+                                    <form method="POST" action="cart/remove">
+                                        <input type="hidden" value="<%=compra._id%>" name="productId">
+                                        <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            <div class="container-teste">
+                <div class="container-frete">
+                    <p> Calcule seu frete </p>
+                    <div class="box-frete">
+                        <input type="text" class="cep" placeholder="CEP">
+                        <a href="#"> Não sei meu CEP </a>
+                    </div>
+                </div>
+                <div class="container-total">
+                    <p> Subtotal: </p>
+                    <p> Frete: </p>
+                    <p class="total"> Total: </p>
+                </div>
+            </div>
+            <div class="btn-cart">
+                <button type="submit"> Concluir Compra </button>
+            </div>
+
+        </div>
+        <%}%>
+        <footer>
+            <div class="logo-footer">
+                <img src="/imagens/logo_branca.png">
+                <p> © 2023 Amber Forte </p>
+            </div>
+            <div class="endereco-footer">
+                <p> Venha nos visitar! </p>
+                <p> Rua Joao Joaquim de Melo, 678, Vila Mimosa </p>
+                <p class="cel"> (19) 94561-3023</p>
+            </div>
+            <div class="social-footer">
+                <p> Nos siga! </p>
+                <div class="instagram-footer">
+                    <i class="fa-brands fa-instagram"></i> <p> @bsh_ferramentas</p>      
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

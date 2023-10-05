@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css" rel="stylesheet" >
+    <link href="css/styleProducts.css" rel="stylesheet" >
+    <title> Tigre - Artigos Esportivos </title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="imagens/tigre.png">
+        </div>
+
+        <input type="checkbox" id="nav_check" hidden>
+        <nav>
+
+            <div class="logo">
+                <img src="imagens/tigre.png">
+            </div>
+
+            <ul>
+                <li> <a href="#"> Mulheres </a> </li>
+                <li> <a href="#"> Homens </a> </li>
+                <li> <a href="#"> Esportes </a> </li>
+                <li> <a href="products"> Todos os Produtos </a> </li>
+                <li>
+                    <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                </li>
+                <% if (!user) {%>
+                    <li>
+                        <div class="icons">
+                            <a href="cart"> <i class="fa-solid fa-cart-shopping"></i> </a>
+                            <a href="login"> <i class="fa-regular fa-user"></i> </a>
+                        </div>
+                    </li>
+                <% } %>
+                <% if (user) {%>
+                    <li>
+                        <div class="icons">
+                            <a href="cart"> <i class="fa-solid fa-cart-shopping"></i> </a>
+                            <div class="logout">
+                                <p>Olá, <%= user.nome %>!</p>
+                                <form action="logout" method="POST">
+                                    <button type="submit"><i class="fa-solid fa-right-from-bracket"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                <% } %>
+            </ul>
+
+
+        </nav>
+        <label for="nav_check" class="hamburguer">
+            <div></div>
+            <div></div>
+            <div></div>
+        </label>
+</header>
+
+    <div class="filters">
+        <div class="filter-icon">
+            <i class="fa-solid fa-sliders"></i>
+            <p> Filtros </p>
+        </div>
+
+        <form action="/">
+            <select id="price" name="price">
+              <option> Preço </option>
+              <option value="100"> Até R$ 100,00 </option>
+              <option value="100-200"> De R$ 100,00 a R$ 200,00 </option>
+              <option value="200-300"> De R$ 200,00 a R$ 300,00 </option>
+              <option value="300+"> R$300 + </option>
+            </select>
+        </form>
+        <form action="/">
+            <select id="color" name="color">
+              <option> Cor </option>
+              <option value="preto"> Preto </option>
+              <option value="branco"> Branco </option>
+              <option value="vermelho"> Vermelho </option>
+              <option value="azul"> Azul </option>
+            </select>
+        </form>
+        <form action="/">
+            <select id="type" name="type">
+              <option> Tipo </option>
+              <option value="camisetas"> Camisetas </option>
+              <option value="jaquetas"> Jaquetas e Moletons </option>
+              <option value="calcas"> Calças </option>
+              <option value="tenis"> Tênis </option>
+              <option value="chuteiras"> Chuteiras </option>
+            </select>
+          </form>
+        <form action="/">
+            <select id="brands" name="brands">
+              <option> Marcas </option>
+              <option value="volvo"> Nike </option>
+              <option value="saab"> Adidas </option>
+              <option value="fiat"> Puma </option>
+              <option value="audi"> Umbro </option>
+              <option value="audi"> Mizuno </option>
+            </select>
+          </form>
+    </div>
+
+    <div class="wrapper">
+        <% for (const product of products) { %>
+            <div class="item">
+                <a href="/product/<%= product.id %>">
+                        <div class="item-img">
+                            <img src="./imagens/<%=product.image%> ">
+                        </div>
+                        <p> <%= product.name %> </p>
+
+                        <div class="valor">
+                            <p> R$ <%= (product.price).toFixed(2)  %></p>
+                        </div>        
+                    <form method="POST" action="cart/add" class="comprar">
+                        <input type="hidden" value="<%=product.id%>" name="product">
+                        <div class="card-buy">
+                            <% if(user) { %>
+                            <button type="submit" class="button-buy"> Comprar </button>
+                            <% } %>
+                            <% if(!user) { %>
+                                <button type="button" class="button-buy-lock" style="background-color: gray; opacity: 0.8; cursor: default;"> Comprar <i class="fa-solid fa-lock"></i> </button>
+                            <% } %>
+                        </div>
+                    </form>
+                </a>
+            </div>
+        <% } %>
+    </div>
+    <script src="https://kit.fontawesome.com/be07557a2e.js" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+.filters {
+    display: flex;
+    gap: 100px; 
+    justify-content: center; 
+    margin-top: 100px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid black;
+    padding-bottom: 30px;
+    margin-right: 200px;
+    margin-left: 200px;
+}
+
+.filter-icon {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
