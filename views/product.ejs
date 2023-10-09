@@ -9,25 +9,6 @@
     <title> Produto </title>
 </head>
 <body>
-    <script>
-        document.getElementById('calcular-frete').addEventListener('click', async function(event) {
-            event.preventDefault();
-            console.log("teste");
-            const cepInput = document.getElementById('cep-input').value;
-        
-            try {
-                const response = await fetch(`/product/<%= product._id %>?cep=${cepInput}`);
-                const data = await response.json();
-        
-                const resultadoFrete = document.getElementById('resultado-frete');
-                resultadoFrete.innerHTML = `<p>Valor frete: R$ ${data.valorsedex}</p>
-                                            <p>Prazo: ${data.prazosedex} dias</p>`;
-        
-            } catch (error) {
-                console.error('Erro ao calcular frete:', error);
-            }
-        });
-    </script>
     <header>
         <div class="logo">
             <img src="imagens/tigre.png">
@@ -194,6 +175,5 @@
             </div>
         </div>
     </footer>
-
 </body>
 </html>

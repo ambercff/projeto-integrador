@@ -3,6 +3,7 @@ const router = express.Router();
 let User = require('./model/User.js');
 let Product = require('./model/Product.js');
 const axios = require('axios');
+const xml2js = require('xml2js');
 
 router.get('/', async(req, res) => {
     const user = await req.session.user
@@ -13,6 +14,26 @@ router.get('/', async(req, res) => {
 router.get('/login', (req, res) => {
     res.render("login")
 })
+
+router.get('/endereco', async(req, res) => {
+    const user = await req.session.user
+    const products = await Product.find();
+    res.render("endereco", {user, products})
+})
+
+router.get('/admin', async (req, res) => {
+    const user = await req.session.user
+    if (!req.session.user || req.session.user.email !== 'admin@gmail.com') {
+        res.redirect('/login');
+        return;
+    } else {
+        // Se o usuário é o admin, você pode acessar as informações aqui
+        const allUsers = await User.find().populate('cart.compras.product');
+        res.render("admin", { users: allUsers, user });
+    }
+});
+
+
 
 router.get('/products', async(req,res) => {
     const user = await req.session.user
@@ -35,32 +56,14 @@ router.get('/product/:productId', async (req, res) => {
             return res.status(404).render('produto_nao_encontrado', { user });
         }
 
-        let freteData = null;
-        if (req.query.cep) {
-            const cepDestino = req.query.cep;
-            const response = await axios.get(`https://www.cepcerto.com/ws/json-frete/13186642/${cepDestino}/200/50/30/20`);
-            freteData = response.data;
-        }
 
-        res.render('product', { user, product, products, frete: freteData });
+        res.render('product', { user, product, products });
     } catch (error) {
         console.error('Erro ao buscar detalhes do produto:', error);
         res.status(500).render('erro', { user });
     }
 });
 
-
-
-router.get('/ferramentas_medicao', async(req, res) => {
-    const user = await req.session.user
-    const products = await Product.find();
-    res.render("ferramentas_medicao", {user, products});
-})
-router.get('/ferramentas_eletricas', async(req, res) => {
-    const user = await req.session.user
-    const products = await Product.find();
-    res.render("ferramentas_eletricas", {user, products});
-})
 
 router.get('/fale-conosco', (req, res) => {
     res.render("fale_conosco")
@@ -87,16 +90,26 @@ router.post('/login', async(req, res) => {
 
     const {email, senha} = req.body; //as chaves procuram por atributos com os nomes email e senha
 
-    const user = await User.findOne({email, senha});
+    console.log(email, senha)
 
-    if(!user) {
-        return;
+    try {
+        const user = await User.findOne({email, senha});
+
+        if (email === 'admin@gmail.com' && senha === 'admin123') {
+            req.session.user = user;
+            res.redirect('/admin')
+            return; 
+        }
+
+        if(!user) {
+            return;
+        }
+    
+        req.session.user = user;
+        res.redirect("/")
+    } catch (erro) {
+        console.log("Algo deu errado")
     }
-
-    req.session.user = user;
-    res.redirect("/")
-
-    console.log(req.session.user.id)
 
 });
 
@@ -179,6 +192,32 @@ router.post('/cart/remove', async (req, res) => {
         res.status(500).json({ message: 'Erro ao remover o produto do carrinho.' });
     }
 });
+
+router.post('/cart/finish', async (req, res) => {
+    const user_session = req.session.user._id;
+
+    try {
+        // Atualiza o status de todas as compras no carrinho para 'true' indicando que foram finalizadas
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: user_session },
+            { $set: { "cart.compras.$[].isCompleted": true } },
+            { new: true }
+        );
+
+        if (!updatedUser) {
+            // Se o usuário não foi encontrado, envie um erro
+            return res.status(404).send("Usuário não encontrado.");
+        }
+
+        // Compras finalizadas com sucesso
+        res.status(200).send("Compras finalizadas com sucesso!");
+    } catch (err) {
+        // Handle error
+        console.error(err);
+        res.status(500).send("Erro ao finalizar as compras.");
+    }
+});
+
 
 router.get('/search', async (req, res) => {
     const user = await req.session.user;

@@ -15,6 +15,10 @@ const userSchema = mongoose.Schema({
                 boughtAt: {
                     type: Date,
                     default: Date.now
+                },
+                isCompleted: {
+                    type: Boolean,
+                    default: false
                 }
             }
         ]

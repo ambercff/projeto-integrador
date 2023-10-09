@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css" rel="stylesheet" >
+    <link href="css/styleAdress.css" rel="stylesheet" >
+    <title> Tigre - Artigos Esportivos </title>
+</head>
+<body>
+    <header>
+            <div class="logo">
+                <img src="imagens/tigre.png">
+            </div>
+
+            <input type="checkbox" id="nav_check" hidden>
+            <nav>
+
+                <div class="logo">
+                    <img src="imagens/tigre.png">
+                </div>
+
+                <ul>
+                    <li> <a href="#"> Mulheres </a> </li>
+                    <li> <a href="#"> Homens </a> </li>
+                    <li> <a href="#"> Esportes </a> </li>
+                    <li> <a href="products"> Todos os Produtos </a> </li>
+                    <li>
+                        <div class="search-bar">
+                        <input type="text" placeholder="Pesquisar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                    </li>
+                    <% if (!user) {%>
+                        <li>
+                            <div class="icons">
+                                <a href="cart"> <i class="fa-solid fa-cart-shopping"></i> </a>
+                                <a href="login"> <i class="fa-regular fa-user"></i> </a>
+                            </div>
+                        </li>
+                    <% } %>
+                    <% if (user) {%>
+                        <li>
+                            <div class="icons">
+                                <a href="cart"> <i class="fa-solid fa-cart-shopping"></i> </a>
+                                <div class="logout">
+                                    <p>Olá, <%= user.nome %>!</p>
+                                    <form action="logout" method="POST">
+                                        <button type="submit"><i class="fa-solid fa-right-from-bracket"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                    <% } %>
+                </ul>
+
+
+            </nav>
+            <label for="nav_check" class="hamburguer">
+                <div></div>
+                <div></div>
+                <div></div>
+            </label>
+    </header>
+    <h1> Cadastre o endereço de entrega </h1>
+    <div class="container-endereco">
+
+        <div class="input-endereco-left">
+
+            <label> Cidade </label>
+            <input type="text" name="cidade" required> 
+
+            <label> Rua </label>
+            <input type="text" name="rua" required> 
+
+            <label> Bairro </label>
+            <input type="text" name="bairro" required> 
+
+        </div>
+
+        <div class="input-endereco-right">
+            <label> N° </label>
+            <input type="number" name="num" required> 
+
+            <label> CEP </label>
+            <input type="number" name="cep" required> 
+
+            <label> Complemento </label>
+            <input type="text" name="complemento"> 
+        </div>
+    </div>
+
+    <div class="btn">
+        <button> Finalizar </button>
+    </div>
+
+    <footer>
+        <div class="logo-footer">
+            <img src="/imagens/logo_branca.png">
+            <p> © 2023 Amber Forte </p>
+        </div>
+        <div class="endereco-footer">
+            <p> Venha nos visitar! </p>
+            <p> Rua Joao Joaquim de Melo, 678, Vila Mimosa </p>
+            <p class="cel"> (19) 94561-3023</p>
+        </div>
+        <div class="social-footer">
+            <p> Nos siga! </p>
+            <div class="instagram-footer">
+                <i class="fa-brands fa-instagram"></i> <p> @bsh_ferramentas</p>      
+            </div>
+        </div>
+    </footer>
+<script src="https://kit.fontawesome.com/be07557a2e.js" defer crossorigin="anonymous"></script>
+</body>
+</html>
