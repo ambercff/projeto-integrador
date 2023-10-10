@@ -72,22 +72,21 @@
                 </tr>
             </thead>
             <tbody>
-                <% let pedidoNumero = 1; %>
                 <% for (const user of users) { %>
                     <% for (const compra of user.cart.compras) { %>
-                        <% if (compra.isCompleted == true) { %>
+                        <% if (compra.isCompleted) { %>
                             <tr>
-                                <td> Pedido <%= pedidoNumero %> </td>
+                                <td> Pedido <%= compra.numeroPedido %> </td>
                                 <td><%= compra.product.name %></td>
                                 <td>R$ <%= compra.product.price.toFixed(2) %></td>
                             </tr>
-                            <% pedidoNumero++; %>
                         <% } %>
                     <% } %>
                 <% } %>
             </tbody>
         </table>
     </div>
+    
     
     
     <script src="https://kit.fontawesome.com/be07557a2e.js" defer crossorigin="anonymous"></script>

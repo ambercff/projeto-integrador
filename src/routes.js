@@ -15,6 +15,12 @@ router.get('/login', (req, res) => {
     res.render("login")
 })
 
+router.get('/jaquetas', async(req, res) => {
+    const user = await req.session.user
+    const products = await Product.find();
+    res.render("jaquetas", {user, products});
+})
+
 router.get('/endereco', async(req, res) => {
     const user = await req.session.user
     const products = await Product.find();
@@ -197,7 +203,6 @@ router.post('/cart/finish', async (req, res) => {
     const user_session = req.session.user._id;
 
     try {
-        // Atualiza o status de todas as compras no carrinho para 'true' indicando que foram finalizadas
         const updatedUser = await User.findOneAndUpdate(
             { _id: user_session },
             { $set: { "cart.compras.$[].isCompleted": true } },
@@ -205,11 +210,9 @@ router.post('/cart/finish', async (req, res) => {
         );
 
         if (!updatedUser) {
-            // Se o usuário não foi encontrado, envie um erro
             return res.status(404).send("Usuário não encontrado.");
         }
 
-        // Compras finalizadas com sucesso
         res.status(200).send("Compras finalizadas com sucesso!");
     } catch (err) {
         // Handle error

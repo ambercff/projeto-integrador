@@ -61,75 +61,21 @@
                 <div></div>
             </label>
     </header>
-    <div class="advertising-1">
-        
-    </div>
-
-    <div class="brands">
-        <div class="title-brands">
-            <p> Escolha a marca </p>
-        </div>
-        <div class="logos-brands">
-            <div class="img-brand">
-                <a href="#"><img src="imagens/logo-nike.svg"></a>
-            </div>
-            <div class="img-brand">
-                <a href="#"><img src="imagens/logo-adidas.png"></a>
-            </div>
-            <div class="img-brand">
-                <a href="#"><img src="imagens/logo-puma.png"></a>
-            </div>
-            <div class="img-brand">
-                <a href="#"><img src="imagens/logo-umbro.png"></a>
-            </div>
-            <div class="img-brand">
-                <a href="#"><img src="imagens/logo-mizuno.svg"></a>
-            </div>
-        </div>
-    </div>
-    <div class="advertising-2">
-
-    </div>
-    <div class="brands">
-        <div class="title-brands">
-            <p> Torça como nunca! </p>
-        </div>
-        <div class="logos-brands">
-            <div class="logo-time">
-                <a href="#"><img src="imagens/corinthians.png"></a>
-            </div>
-            <div class="logo-time">
-                <a href="#"><img src="imagens/flamengo.png"></a>
-            </div>
-            <div class="logo-time">
-                <a href="#"><img src="imagens/palmeiras.png"></a>
-            </div>
-            <div class="logo-time">
-                <a href="#"><img src="imagens/santos.png"></a>
-            </div>
-            <div class="logo-time">
-                <a href="#"><img src="imagens/internacional.png"></a>
-            </div>
-        </div>
-    </div>
-
-    <div class="title-destaques">
-        <h1> Destaques </h1>
-    </div>
 
     <div class="wrapper">
         <% for (const product of products) { %>
-            <% if (product.categoria == 'destaque') { %>
-            <div class="item">
-                <a href="/product/<%= product.id %>">
+            <% if (product.categoria == 'tenis') { %>
+                <div class="item">
+                    <a href="product">
                         <div class="item-img">
                             <img src="./imagens/<%=product.image%> ">
                         </div>
-                        <p> <%= product.name %> </p>
+                        <p> <%= product.name %>  </p>
 
                         <div class="valor">
                             <p> R$ <%= (product.price).toFixed(2)  %></p>
                         </div>        
+                    </a>
                     <form method="POST" action="cart/add" class="comprar">
                         <input type="hidden" value="<%=product.id%>" name="product">
                         <div class="card-buy">
@@ -141,12 +87,29 @@
                             <% } %>
                         </div>
                     </form>
-                </a>
-            </div>
+                </div>
             <% } %>
         <% } %>
     </div>
-
+    <footer>
+        <div class="logo-footer">
+            <img src="/imagens/logo_branca.png">
+            <p> © 2023 Amber Forte </p>
+        </div>
+        <div class="endereco-footer">
+            <p> Venha nos visitar! </p>
+            <p> Rua Joao Joaquim de Melo, 678, Vila Mimosa </p>
+            <p class="cel"> (19) 94561-3023</p>
+        </div>
+        <div class="social-footer">
+            <p> Nos siga! </p>
+            <div class="instagram-footer">
+                <i class="fa-brands fa-instagram"></i> <p> @bsh_ferramentas</p>      
+            </div>
+        </div>
+    </footer>
+    
+<script src="../js/script.js"></script>
 <script src="https://kit.fontawesome.com/be07557a2e.js" defer crossorigin="anonymous"></script>
 </body>
 </html>
