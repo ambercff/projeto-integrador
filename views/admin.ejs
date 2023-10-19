@@ -8,59 +8,59 @@
 </head>
 <body>
     <header>
+        <div class="logo">
+            <img src="imagens/logo-semfundo.jpg">
+        </div>
+
+        <input type="checkbox" id="nav_check" hidden>
+        <nav>
+
             <div class="logo">
-                <img src="imagens/tigre.png">
+                <img src="imagens/logo-semfundo.jpg">
             </div>
 
-            <input type="checkbox" id="nav_check" hidden>
-            <nav>
-
-                <div class="logo">
-                    <img src="imagens/tigre.png">
-                </div>
-
-                <ul>
-                    <li> <a href="#"> Mulheres </a> </li>
-                    <li> <a href="#"> Homens </a> </li>
-                    <li> <a href="#"> Esportes </a> </li>
-                    <li> <a href="products"> Todos os Produtos </a> </li>
+            <ul>
+                <li> <a href="jaquetas"> Jaquetas e Moletons </a> </li>
+                <li> <a href="tenis"> Tênis </a> </li>
+                <li> <a href="#"> Esportes </a> </li>
+                <li> <a href="products"> Todos os Produtos </a> </li>
+                <li>
+                    <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                </li>
+                <% if (!user) {%>
                     <li>
-                        <div class="search-bar">
-                        <input type="text" placeholder="Pesquisar">
-                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <div class="icons">
+                            <a href="cart"> <i class="fa-solid fa-cart-shopping"></i> </a>
+                            <a href="login"> <i class="fa-regular fa-user"></i> </a>
                         </div>
                     </li>
-                    <% if (!user) {%>
-                        <li>
-                            <div class="icons">
-                                <a href="cart"> <i class="fa-solid fa-cart-shopping"></i> </a>
-                                <a href="login"> <i class="fa-regular fa-user"></i> </a>
+                <% } %>
+                <% if (user) {%>
+                    <li>
+                        <div class="icons">
+                            <a href="cart"> <i class="fa-solid fa-cart-shopping"></i> </a>
+                            <div class="logout">
+                                <p>Olá, <%= user.nome %>!</p>
+                                <form action="logout" method="POST">
+                                    <button type="submit"><i class="fa-solid fa-right-from-bracket"></i></button>
+                                </form>
                             </div>
-                        </li>
-                    <% } %>
-                    <% if (user) {%>
-                        <li>
-                            <div class="icons">
-                                <a href="cart"> <i class="fa-solid fa-cart-shopping"></i> </a>
-                                <div class="logout">
-                                    <p>Olá, <%= user.nome %>!</p>
-                                    <form action="logout" method="POST">
-                                        <button type="submit"><i class="fa-solid fa-right-from-bracket"></i></button>
-                                    </form>
-                                </div>
-                            </div>
-                        </li>
-                    <% } %>
-                </ul>
+                        </div>
+                    </li>
+                <% } %>
+            </ul>
 
 
-            </nav>
-            <label for="nav_check" class="hamburguer">
-                <div></div>
-                <div></div>
-                <div></div>
-            </label>
-    </header>
+        </nav>
+        <label for="nav_check" class="hamburguer">
+            <div></div>
+            <div></div>
+            <div></div>
+        </label>
+</header>
 
     <div class="wrapper">
         <table>
