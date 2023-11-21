@@ -62,30 +62,38 @@
         </label>
 </header>
 
-    <div class="wrapper">
-        <table>
-            <thead>
-                <tr>
-                    <th> Pedido </th>
-                    <th> Nome do Produto </th>
-                    <th> Total </th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for (const user of users) { %>
-                    <% for (const compra of user.cart.compras) { %>
-                        <% if (compra.isCompleted) { %>
-                            <tr>
-                                <td> Pedido <%= compra.numeroPedido %> </td>
-                                <td><%= compra.product.name %></td>
-                                <td>R$ <%= compra.product.price.toFixed(2) %></td>
-                            </tr>
+<div class="wrapper">
+    <table>
+        <thead>
+            <tr>
+                <th>Pedido</th>
+                <th> Cliente </th>
+                <th>Nome do Produto</th>
+                <th>Total</th>
+                <th> Endereço </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% let lastOrderId = null; %>
+            <% for (const order of orders) { %>
+                <% for (const compra of order.compras) { %>
+                    <tr>
+                        <% if (lastOrderId !== order._id) { %>
+                            <td>Pedido <%= order._id %></td>
+                            <% lastOrderId = order._id; %>
+                        <% } else { %>
+                            <td></td> <!-- Deixe a célula vazia para pedidos repetidos -->
                         <% } %>
-                    <% } %>
+                        <td> <%= order.user.nome %> </td>
+                        <td><%= compra.product.name %></td>
+                        <td>R$ <%= compra.product.price.toFixed(2) %></td>
+                        <td> <%= order.endereco %> </td>
+                    </tr>
                 <% } %>
-            </tbody>
-        </table>
-    </div>
+            <% } %>
+        </tbody>
+    </table>
+</div>
     
     
     

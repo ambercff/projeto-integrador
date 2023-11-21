@@ -1,5 +1,14 @@
 const mongoose = require("mongoose");
 
+const addressSchema = mongoose.Schema({
+    cidade: String,
+    rua: String,
+    bairro: String,
+    numero: Number,
+    cep: Number,
+    complemento: String
+});
+
 const userSchema = mongoose.Schema({
     email: String, 
     nome: String,
@@ -9,17 +18,14 @@ const userSchema = mongoose.Schema({
             {
                 product: {
                     type: mongoose.Schema.Types.ObjectId,
-                    ref:'Product'
+                    ref: 'Product'
                 },
                 quantity: Number,
                 boughtAt: {
                     type: Date,
                     default: Date.now
                 },
-                isCompleted: {
-                    type: Boolean,
-                    default: false
-                },
+                endereco: addressSchema
             }
         ]
     }

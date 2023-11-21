@@ -9,25 +9,30 @@
 <body>
     <header>
         <div class="logo">
-            <img src="imagens/logo-semfundo.jpg">
+            <a href="/"><img src="imagens/logo-semfundo.jpg"></a>
         </div>
 
         <input type="checkbox" id="nav_check" hidden>
         <nav>
 
             <div class="logo">
-                <img src="imagens/logo-semfundo.jpg">
+                <a href="/"><img src="imagens/logo-semfundo.jpg"></a>
             </div>
 
             <ul>
                 <li> <a href="jaquetas"> Jaquetas e Moletons </a> </li>
                 <li> <a href="tenis"> Tênis </a> </li>
-                <li> <a href="#"> Esportes </a> </li>
+                <li> <a href="esportes"> Esportes </a> </li>
                 <li> <a href="products"> Todos os Produtos </a> </li>
                 <li>
                     <div class="search-bar">
-                    <input type="text" placeholder="Pesquisar">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                        <div class="search-container">
+                            <form action="/search" method="GET">
+                                <input type="text" placeholder="Faça sua pesquisa" class="barra-pesquisa" name="q">
+                                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </form>
+                            <div class="hints"></div>
+                        </div>
                     </div>
                 </li>
                 <% if (!user) {%>

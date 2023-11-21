@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 let User = require('./model/User.js');
 let Product = require('./model/Product.js');
+let Order = require('./model/Order.js');
 const axios = require('axios');
 const xml2js = require('xml2js');
 
@@ -28,14 +29,24 @@ router.get('/endereco', async(req, res) => {
 })
 
 router.get('/admin', async (req, res) => {
-    const user = await req.session.user
-    if (!req.session.user || req.session.user.email !== 'admin@gmail.com') {
+    const user = await req.session.user;
+
+    if (!user || user.email !== 'admin@gmail.com') {
         res.redirect('/login');
         return;
-    } else {
-        // Se o usuário é o admin, você pode acessar as informações aqui
-        const allUsers = await User.find().populate('cart.compras.product');
-        res.render("admin", { users: allUsers, user });
+    }
+
+    try {
+        // Encontrar todos os pedidos e populá-los com os detalhes dos produtos
+        const allOrders = await Order.find().populate({
+            path: 'compras.product',
+            model: 'Product'
+        }).populate('user', 'nome'); // Adicionei a opção 'nome' para trazer apenas o nome do usuário
+
+        res.render("admin", { orders: allOrders, user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Erro ao carregar dados do admin.");
     }
 });
 
@@ -192,7 +203,7 @@ router.post('/cart/remove', async (req, res) => {
             return;
         }
 
-        res.redirect('/');
+        res.redirect('/cart');
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: 'Erro ao remover o produto do carrinho.' });
@@ -203,23 +214,45 @@ router.post('/cart/finish', async (req, res) => {
     const user_session = req.session.user._id;
 
     try {
-        const updatedUser = await User.findOneAndUpdate(
-            { _id: user_session },
-            { $set: { "cart.compras.$[].isCompleted": true } },
-            { new: true }
-        );
+        const user = await User.findOne({ _id: user_session, "cart.compras": { $exists: true, $not: { $size: 0 } } });
 
-        if (!updatedUser) {
-            return res.status(404).send("Usuário não encontrado.");
+        if (!user) {
+            return res.status(404).send("Usuário não encontrado ou carrinho vazio.");
         }
 
-        res.status(200).send("Compras finalizadas com sucesso!");
+        const endereco = {
+            cidade: req.body.cidade,
+            rua: req.body.rua,
+            bairro: req.body.bairro,
+            numero: req.body.num,
+            cep: req.body.cep,
+            complemento: req.body.complemento
+        };
+
+        for (const compra of user.cart.compras) {
+            const newQuantity = req.body[compra._id];
+            compra.quantity = parseInt(newQuantity, 10) || 1;
+            compra.endereco = endereco; // Adicione o endereço à compra
+        }
+
+        const order = new Order({
+            user: user._id,
+            compras: user.cart.compras
+        });
+
+        await order.save();
+
+        user.cart.compras = [];
+        await user.save();
+
+        res.status(200).send("Compras finalizadas e movidas para pedidos com sucesso!");
     } catch (err) {
-        // Handle error
         console.error(err);
-        res.status(500).send("Erro ao finalizar as compras.");
+        res.status(500).send("Erro ao finalizar as compras e mover para pedidos.");
     }
 });
+
+
 
 
 router.get('/search', async (req, res) => {
@@ -237,7 +270,6 @@ router.get('/search', async (req, res) => {
     }
 });
 
-// Dentro do seu arquivo de rotas (router.js ou similar)
 
 router.get('/search/suggestions', async (req, res) => {
     const searchTerm = req.query.q; // Obtém o termo de pesquisa da query string
