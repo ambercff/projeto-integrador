@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/style.css" rel="stylesheet" >
+    <link href="css/styleAdmin.css" rel="stylesheet" >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
     <title> Tigre - Artigos Esportivos </title>
 </head>
 <body>
@@ -63,40 +66,63 @@
 </header>
 
 <div class="wrapper">
-    <table>
-        <thead>
+    <table id="ordersTable" class="table">
+        <thead class="table-dark">
             <tr>
-                <th>Pedido</th>
-                <th> Cliente </th>
+                <th>ID</th>
+                <th>Cliente</th>
                 <th>Nome do Produto</th>
                 <th>Total</th>
-                <th> Endereço </th>
+                <th>Endereço</th>
             </tr>
         </thead>
-        <tbody>
-            <% let lastOrderId = null; %>
-            <% for (const order of orders) { %>
-                <% for (const compra of order.compras) { %>
-                    <tr>
-                        <% if (lastOrderId !== order._id) { %>
-                            <td>Pedido <%= order._id %></td>
-                            <% lastOrderId = order._id; %>
-                        <% } else { %>
-                            <td></td> <!-- Deixe a célula vazia para pedidos repetidos -->
-                        <% } %>
-                        <td> <%= order.user.nome %> </td>
-                        <td><%= compra.product.name %></td>
-                        <td>R$ <%= compra.product.price.toFixed(2) %></td>
-                        <td> <%= order.endereco %> </td>
-                    </tr>
-                <% } %>
-            <% } %>
+        <tbody id="ordersBody">
+            <!-- Conteúdo da tabela será adicionado dinamicamente aqui -->
         </tbody>
     </table>
 </div>
-    
-    
-    
-    <script src="https://kit.fontawesome.com/be07557a2e.js" defer crossorigin="anonymous"></script>
+
+<script src="https://kit.fontawesome.com/be07557a2e.js" defer crossorigin="anonymous"></script>
+<script>
+    // Função para carregar dinamicamente os pedidos usando Ajax
+    function loadOrders() {
+        fetch('/admin/orders')
+            .then(response => response.json())
+            .then(data => {
+                const ordersBody = document.getElementById('ordersBody');
+                ordersBody.innerHTML = ''; // Limpa o conteúdo atual
+
+                let lastOrderId = null;
+
+                data.orders.forEach(order => {
+                    order.compras.forEach(compra => {
+                        const row = document.createElement('tr');
+                        if (lastOrderId !== order._id) {
+                            const pedidoCell = document.createElement('td');
+                            pedidoCell.textContent = order._id;
+                            row.appendChild(pedidoCell);
+                            lastOrderId = order._id;
+                        } else {
+                            row.appendChild(document.createElement('td'));
+                        }
+                        row.innerHTML += `
+                            <td class='user'>${order.user.nome}</td>
+                            <td class='produto'>${compra.product.name}</td>
+                            <td>R$ ${compra.product.price.toFixed(2)}</td>
+                            <td>${compra.endereco.cidade}, ${compra.endereco.rua}, ${compra.endereco.bairro}, ${compra.endereco.numero}, ${compra.endereco.cep}, ${compra.endereco.complemento}</td>
+                        `;
+                        ordersBody.appendChild(row);
+                    });
+                });
+            })
+            .catch(error => {
+                console.error('Erro ao carregar os pedidos:', error);
+            });
+    }
+
+    // Chama a função para carregar os pedidos quando a página carrega
+    window.onload = loadOrders;
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

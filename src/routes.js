@@ -36,17 +36,21 @@ router.get('/admin', async (req, res) => {
         return;
     }
 
+    res.render('admin', { user });
+});
+
+// Rota adicional para fornecer dados JSON dos pedidos
+router.get('/admin/orders', async (req, res) => {
     try {
-        // Encontrar todos os pedidos e populá-los com os detalhes dos produtos
         const allOrders = await Order.find().populate({
             path: 'compras.product',
             model: 'Product'
-        }).populate('user', 'nome'); // Adicionei a opção 'nome' para trazer apenas o nome do usuário
+        }).populate('user', 'nome');
 
-        res.render("admin", { orders: allOrders, user });
+        res.json({ orders: allOrders });
     } catch (error) {
         console.error(error);
-        res.status(500).send("Erro ao carregar dados do admin.");
+        res.status(500).json({ error: 'Erro ao carregar dados do admin.' });
     }
 });
 
@@ -219,14 +223,16 @@ router.post('/cart/finish', async (req, res) => {
         if (!user) {
             return res.status(404).send("Usuário não encontrado ou carrinho vazio.");
         }
+        
+        const {cidade, rua, bairro, num, cep, complemento} = req.body; 
 
         const endereco = {
-            cidade: req.body.cidade,
-            rua: req.body.rua,
-            bairro: req.body.bairro,
-            numero: req.body.num,
-            cep: req.body.cep,
-            complemento: req.body.complemento
+            cidade: cidade,
+            rua: rua,
+            bairro: bairro,
+            numero: num,
+            cep: cep,
+            complemento: complemento
         };
 
         for (const compra of user.cart.compras) {
@@ -234,6 +240,8 @@ router.post('/cart/finish', async (req, res) => {
             compra.quantity = parseInt(newQuantity, 10) || 1;
             compra.endereco = endereco; // Adicione o endereço à compra
         }
+
+        console.log(endereco)
 
         const order = new Order({
             user: user._id,

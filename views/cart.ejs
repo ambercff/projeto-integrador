@@ -78,6 +78,7 @@
     </div>
     <% } else {%>
         <% for (const compra of user.cart.compras) { %>
+            <form method="GET" action="endereco">
             <div class="container-product">
                 <div class="infos-product">                   
                     <div class="img-product">
@@ -96,10 +97,7 @@
                             </div>
                             <div class="qtde">
                                 <p> Quantidade: </p>
-                                <!-- Adicione a quantidade ao campo de entrada -->
-                                <input type="number" step="1" value="<%= compra.quantity %>" name="quantity" onchange="updateQuantity('<%= compra._id %>', this.value)">
-
-
+                                <input type="number" step="1" name="quantity">
                             </div>
                         </div>
                         <div class="remove-product">
@@ -128,10 +126,10 @@
         </div>
 
         <div class="btn-cart">
-            <form method="GET" action="endereco">
                 <button type="submit"> Concluir Compra </button>
-            </form>
+
         </div>
+    </form>
     <% } %>
 </div>
 
@@ -154,4 +152,5 @@
         </footer>
         <script src="https://kit.fontawesome.com/be07557a2e.js" defer crossorigin="anonymous"></script>
     </body>
+    
 </html>
