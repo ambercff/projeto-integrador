@@ -78,7 +78,6 @@
     </div>
     <% } else {%>
         <% for (const compra of user.cart.compras) { %>
-            <form method="GET" action="endereco">
             <div class="container-product">
                 <div class="infos-product">                   
                     <div class="img-product">
@@ -95,10 +94,14 @@
                                 <p> em até 6x sem juros de R$ <%= (compra.product.price / 6).toFixed(2) %></p>
                                 <p class="text-blue"> formas de pagamento </p>
                             </div>
-                            <div class="qtde">
-                                <p> Quantidade: </p>
-                                <input type="number" step="1" name="quantity">
-                            </div>
+                            <form method="POST" action="/cart/update-quantity/<%= compra._id %>">
+                                <div class="qtde">
+                                    <p> Quantidade: 
+                                        <input type="number" name="quantity" value="<%= compra.quantity %>" min="1">
+                                        <button type="submit">Atualizar</button>
+                                    </p>
+                                </div>
+                            </form>
                         </div>
                         <div class="remove-product">
                             <form method="POST" action="cart/remove">
@@ -110,6 +113,8 @@
                 </div>
             </div>
         <% } %>
+        
+        
         <div class="container-teste">
             <div class="container-frete">
                 <p> Calcule seu frete </p>
@@ -124,10 +129,12 @@
                 <p class="total"> Total: </p>
             </div>
         </div>
-
+    <form method="GET" action="endereco">
+        <% for (const compra of user.cart.compras) { %>
+            <input type="hidden" name="<%= compra._id %>" value="<%= compra.quantity %>">
+        <% } %>
         <div class="btn-cart">
                 <button type="submit"> Concluir Compra </button>
-
         </div>
     </form>
     <% } %>

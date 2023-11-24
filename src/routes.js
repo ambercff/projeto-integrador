@@ -24,8 +24,9 @@ router.get('/jaquetas', async(req, res) => {
 
 router.get('/endereco', async(req, res) => {
     const user = await req.session.user
+    const {quantity} = req.body
     const products = await Product.find();
-    res.render("endereco", {user, products})
+    res.render("endereco", {user, products, quantity})
 })
 
 router.get('/admin', async (req, res) => {
@@ -68,6 +69,7 @@ router.get('/cadastro', (req, res) => {
 router.get('/product/:productId', async (req, res) => {
     const user = req.session.user;
     const productId = req.params.productId;
+
 
     try {
         const product = await Product.findById(productId);
@@ -155,23 +157,25 @@ router.get('/cart', async(req, res) => {
         const user_session = req.session.user._id;
 
         let user = await User.findById(user_session).populate('cart.compras.product');
-    
-        res.render("cart", {user});
+
+        res.render("cart", { user});
     }
 
 });
 
 router.post('/cart/add', async(req, res) => {
     const user_session = req.session.user._id;
+
     if (!req.session.user) {
         res.redirect('/login');
         return;
     }
 
     
-    const {product} = req.body;
+    const {product, quantity} = req.body;
+
     const user = await User.findById(user_session);
-    user.cart.compras.push({product: product});
+    user.cart.compras.push({product: product, quantity: quantity});
 
     try {
         await user.save();
@@ -260,6 +264,41 @@ router.post('/cart/finish', async (req, res) => {
     }
 });
 
+router.post('/cart/update-quantity/:productId', async (req, res) => {
+    const user_session = req.session.user._id;
+
+    if (!req.session.user) {
+        res.redirect('/login');
+        return;
+    }
+
+    const { productId } = req.params;
+    const { quantity } = req.body;
+
+    if (!quantity || quantity < 1) {
+        res.redirect('/cart');
+        return;
+    }
+
+    const user = await User.findById(user_session);
+
+    const compra = user.cart.compras.find(c => c._id.equals(productId));
+
+    if (!compra) {
+        res.redirect('/cart');
+        return;
+    }
+
+    compra.quantity = parseInt(quantity, 10);
+
+    try {
+        await user.save();
+        res.redirect('/cart');
+    } catch (error) {
+        console.error('Erro ao atualizar a quantidade:', error);
+        res.redirect('/cart');
+    }
+});
 
 
 

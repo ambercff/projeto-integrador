@@ -109,13 +109,15 @@
                     </div>
                     
 
-            <div class="qtde">
-                <p> Quantidade: </p>
-                <input type="number" step="1" value="1">
-            </div>
+
 
             <form method="POST" action="/cart/add" class="comprar">
                 <input type="hidden" value="<%=product.id%>" name="product">
+
+                <div class="qtde">
+                    <p> Quantidade: </p>
+                    <input type="number" step="1" name="quantity">
+                </div>
                 <div class="button-cart">
                     <% if(user) { %>
                     <button type="submit" class="button-buy"> Comprar </button>
