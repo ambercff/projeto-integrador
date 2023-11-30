@@ -11,7 +11,7 @@
 
 .search-bar input {
     flex: 1;
-    width: 275px;
+    width: 250px;
     height: 40px;
     background-color: black;
     border: 0.5px white solid;
@@ -28,7 +28,6 @@
 
 .search-bar {
     display: flex;
-    justify-content: center;
 }
 
 .search-container {
@@ -68,7 +67,6 @@
 
 .icons {
     display: flex;
-    justify-content: space-around;
 }
 
 .icons i{
@@ -269,7 +267,6 @@ nav ul {
         display: flex;
         justify-content: space-between;
     }
-
     nav {
         position: absolute;
         left: -300px; 

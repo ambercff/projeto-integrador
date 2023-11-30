@@ -9,6 +9,7 @@
     <title> Produto </title>
 </head>
 <body>
+    <!-- inicio cabeçalho -->
     <header>
         <div class="logo">
             <a href="/"><img src="/imagens/logo-semfundo.jpg"></a>
@@ -63,7 +64,9 @@
             <div></div>
         </label>
 </header>
+<!-- fim cabeçalho  -->
 
+<!-- informações do produto individual  -->
     <div class="produto">
         <div class="imagem-produto">
             <img src="../imagens/<%=product.image%> ">
@@ -110,7 +113,7 @@
                     
 
 
-
+        <!-- botao para adicionar ao carrinho  -->
             <form method="POST" action="/cart/add" class="comprar">
                 <input type="hidden" value="<%=product.id%>" name="product">
 
@@ -129,6 +132,8 @@
             </form>
         </div>  
     </div>
+
+    <!-- mostrar todos os produtos com a categoria "destaque" por meio de um for e um if para filtrar -->
 
     <div class="title-wrapper">
         <h1> Outros produtos: </h1>
@@ -163,6 +168,7 @@
         <% } %>
     </div>
 
+    <!-- rodape  -->
     <footer>
         <div class="logo-footer">
             <img src="/imagens/logo_branca.png">

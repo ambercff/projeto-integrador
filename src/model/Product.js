@@ -1,5 +1,7 @@
+//conexao com o banco
 const mongoose = require('mongoose');
 
+//esquema do produto
 const productSchema = mongoose.Schema ({
     name: String,
     price: Number,
@@ -8,6 +10,8 @@ const productSchema = mongoose.Schema ({
     categoria: String
 })
 
+//enviando ao banco o esquema
 const Product = mongoose.model('Product', productSchema)
 
+//exportando o objeto "Product"
 module.exports = Product; 

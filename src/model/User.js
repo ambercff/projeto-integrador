@@ -1,5 +1,7 @@
+//conexao com o banco
 const mongoose = require("mongoose");
 
+//esquema do endereco
 const addressSchema = mongoose.Schema({
     cidade: String,
     rua: String,
@@ -9,6 +11,7 @@ const addressSchema = mongoose.Schema({
     complemento: String
 });
 
+//esquema do usuario
 const userSchema = mongoose.Schema({
     email: String, 
     nome: String,
@@ -31,6 +34,8 @@ const userSchema = mongoose.Schema({
     }
 });
 
+//enviando ao banco o esquema
 const User = mongoose.model('User', userSchema)
 
+//exportando o objeto "User"
 module.exports = User; 

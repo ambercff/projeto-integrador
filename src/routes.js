@@ -1,34 +1,39 @@
+//importando as informações necessárias.
+
 const express = require('express');
 const router = express.Router();
 let User = require('./model/User.js');
 let Product = require('./model/Product.js');
 let Order = require('./model/Order.js');
-const axios = require('axios');
-const xml2js = require('xml2js');
 
+//rota para página "index"
 router.get('/', async(req, res) => {
     const user = await req.session.user
     const products = await Product.find();
     res.render("index", {user, products})
 });
 
+//rota para a página login
 router.get('/login', (req, res) => {
     res.render("login")
 })
 
+//rota para a categoria "jaquetas"
 router.get('/jaquetas', async(req, res) => {
     const user = await req.session.user
     const products = await Product.find();
     res.render("jaquetas", {user, products});
 })
 
-router.get('/endereco', async(req, res) => {
+//rota para a página de "endereço"
+router.post('/endereco', async(req, res) => {
     const user = await req.session.user
     const {quantity} = req.body
     const products = await Product.find();
     res.render("endereco", {user, products, quantity})
-})
+});
 
+//rota para a página "admin"
 router.get('/admin', async (req, res) => {
     const user = await req.session.user;
 
@@ -37,10 +42,13 @@ router.get('/admin', async (req, res) => {
         return;
     }
 
-    res.render('admin', { user });
+    const cart = req.session.cart || { compras: [] };
+
+    res.render('admin', { user, cart });
 });
 
-// Rota adicional para fornecer dados JSON dos pedidos
+
+//rota que fornece os dados dos pedidos em formato json para a página "admin"
 router.get('/admin/orders', async (req, res) => {
     try {
         const allOrders = await Order.find().populate({
@@ -56,16 +64,20 @@ router.get('/admin/orders', async (req, res) => {
 });
 
 
-
+//rota para carregar todos os produtos
 router.get('/products', async(req,res) => {
     const user = await req.session.user
     const products = await Product.find();
     res.render("products", {user, products})
 })
 
+
+//rota para a página de cadastro
 router.get('/cadastro', (req, res) => {
     res.render("cadastro")
 })
+
+//rota para a página individual do produto, localizando-o através do id
 router.get('/product/:productId', async (req, res) => {
     const user = req.session.user;
     const productId = req.params.productId;
@@ -87,11 +99,13 @@ router.get('/product/:productId', async (req, res) => {
     }
 });
 
+//rota para a página fale conosco
 
 router.get('/fale-conosco', (req, res) => {
     res.render("fale_conosco")
 })
 
+//rota para realizar o cadastro do usuário
 router.post('/cadastro', async(req, res) => {
     const {email, senha, nome, confSenha} = req.body;
 
@@ -109,6 +123,7 @@ router.post('/cadastro', async(req, res) => {
 
 });
 
+//rota para realizar o login do usuário
 router.post('/login', async(req, res) => {
 
     const {email, senha} = req.body; //as chaves procuram por atributos com os nomes email e senha
@@ -136,6 +151,7 @@ router.post('/login', async(req, res) => {
 
 });
 
+//rota para deslogar o usuário da sessão
 router.post('/logout', async(req,res) => {
     req.session.destroy((err) => {
         if (err) {
@@ -147,6 +163,7 @@ router.post('/logout', async(req,res) => {
 
 })
 
+//rota para carregar o carrinho e os respectivos produtos do usuário
 router.get('/cart', async(req, res) => {
 
     if (!req.session.user) {
@@ -163,7 +180,8 @@ router.get('/cart', async(req, res) => {
 
 });
 
-router.post('/cart/add', async(req, res) => {
+//rota que adiciona cada produto ao carrinho do usuário
+router.post('/cart/add', async (req, res) => {
     const user_session = req.session.user._id;
 
     if (!req.session.user) {
@@ -171,20 +189,32 @@ router.post('/cart/add', async(req, res) => {
         return;
     }
 
-    
-    const {product, quantity} = req.body;
+    const { product, quantity } = req.body;
 
     const user = await User.findById(user_session);
-    user.cart.compras.push({product: product, quantity: quantity});
+
+    // Verificar se o produto já está no carrinho
+    const existingProduct = user.cart.compras.find(c => c.product.equals(product));
+
+    if (existingProduct) {
+        // Se o produto já estiver no carrinho, atualize a quantidade
+        existingProduct.quantity += parseInt(quantity, 10);
+    } else {
+        // Se o produto não estiver no carrinho, adicione-o
+        user.cart.compras.push({ product, quantity: parseInt(quantity, 10) });
+    }
 
     try {
         await user.save();
         res.redirect('/');
     } catch (err) {
-        console.log(err)
+        console.log(err);
+        res.redirect('/');
     }
 });
 
+
+//rota para remover o produto do carrinho
 router.post('/cart/remove', async (req, res) => {
     const user_session = req.session.user._id;
 
@@ -194,22 +224,34 @@ router.post('/cart/remove', async (req, res) => {
     }
 
     const { productId } = req.body;
-    console.log(productId)
+    console.log(productId);
 
     try {
-        const user = await User.findByIdAndUpdate(
-            user_session,
-            {
-                $pull: { 'cart.compras': { _id: productId } }
-            },
-            { new: true }
-        );
+        const user = await User.findById(user_session);
 
         if (!user) {
             console.log('Usuário não encontrado');
-            res.redirect('/login'); 
+            res.redirect('/login');
             return;
         }
+
+        const compra = user.cart.compras.find((c) => c._id.equals(productId));
+
+        if (!compra) {
+            console.log('Produto não encontrado no carrinho');
+            res.redirect('/cart');
+            return;
+        }
+
+        // If the quantity is greater than 1, decrease the quantity by 1
+        // If the quantity is 1, remove the entire item from the cart
+        if (compra.quantity > 1) {
+            compra.quantity -= 1;
+        } else {
+            user.cart.compras.pull({ _id: productId });
+        }
+
+        await user.save();
 
         res.redirect('/cart');
     } catch (err) {
@@ -218,6 +260,8 @@ router.post('/cart/remove', async (req, res) => {
     }
 });
 
+
+//rota para finalizar a compra do usuário
 router.post('/cart/finish', async (req, res) => {
     const user_session = req.session.user._id;
 
@@ -240,18 +284,19 @@ router.post('/cart/finish', async (req, res) => {
         };
 
         for (const compra of user.cart.compras) {
-            const newQuantity = req.body[compra._id];
-            compra.quantity = parseInt(newQuantity, 10) || 1;
+            console.log("Antes de atualizar:", compra.quantity)
+            compra.quantity = parseInt(compra.quantity, 10) || 1;
+            console.log("Depois de atualizar:", compra.quantity)
             compra.endereco = endereco; // Adicione o endereço à compra
         }
 
         console.log(endereco)
-
+        console.log('Quantidade antes de salvar:', user.cart.compras[0].quantity);
         const order = new Order({
             user: user._id,
             compras: user.cart.compras
         });
-
+        
         await order.save();
 
         user.cart.compras = [];
@@ -264,6 +309,7 @@ router.post('/cart/finish', async (req, res) => {
     }
 });
 
+//rota para alterar a quantidade do produto no carrinho
 router.post('/cart/update-quantity/:productId', async (req, res) => {
     const user_session = req.session.user._id;
 
@@ -293,6 +339,10 @@ router.post('/cart/update-quantity/:productId', async (req, res) => {
 
     try {
         await user.save();
+
+        // Armazenar informações do carrinho na sessão
+        req.session.cart = user.cart;
+
         res.redirect('/cart');
     } catch (error) {
         console.error('Erro ao atualizar a quantidade:', error);
@@ -301,7 +351,7 @@ router.post('/cart/update-quantity/:productId', async (req, res) => {
 });
 
 
-
+//rota para realizar a pesquisa na barra
 router.get('/search', async (req, res) => {
     const user = await req.session.user;
     try {
@@ -317,14 +367,13 @@ router.get('/search', async (req, res) => {
     }
 });
 
-
+//rota que fornece sugestões para o usuário da pesquisa que ele está fazendo
 router.get('/search/suggestions', async (req, res) => {
-    const searchTerm = req.query.q; // Obtém o termo de pesquisa da query string
+    const searchTerm = req.query.q; 
     try {
-        // Realize uma pesquisa no banco de dados usando Mongoose
         const results = await Product.find({ name: { $regex: new RegExp(searchTerm, 'i') }})
-            .limit(5) // Limite o número de sugestões retornadas
-            .select('name'); // Selecione apenas o campo 'nome' dos produtos
+            .limit(5) 
+            .select('name');
 
         const suggestions = results.map((result) => result.name);
 

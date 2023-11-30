@@ -1,3 +1,5 @@
+//carregar as sugestões em tempo real enquanto o usuário digita na barra de pesquisa
+
 const searchInput = document.querySelector('.barra-pesquisa');
 const hints = document.querySelector('.hints');
 

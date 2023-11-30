@@ -10,6 +10,7 @@
     <title> Tigre - Artigos Esportivos </title>
 </head>
 <body>
+    <!-- cabeçalho -->
     <header>
         <div class="logo">
             <img src="imagens/logo-semfundo.jpg">
@@ -64,7 +65,9 @@
             <div></div>
         </label>
 </header>
+<!-- fim cabeçalho -->
 
+<!-- tabela de pedidos -->
 <div class="wrapper">
     <table id="ordersTable" class="table">
         <thead class="table-dark">
@@ -82,6 +85,8 @@
     </table>
 </div>
 
+
+<!-- javacript para carregar todos os pedidos  -->
 <script src="https://kit.fontawesome.com/be07557a2e.js" defer crossorigin="anonymous"></script>
 <script>
     // Função para carregar dinamicamente os pedidos usando Ajax
@@ -121,7 +126,7 @@
             });
     }
 
-    // Chama a função para carregar os pedidos quando a página carrega
+    // chama a função para carregar os pedidos quando a página carrega
     window.onload = loadOrders;
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

@@ -7,6 +7,7 @@
     <title> Tigre - Artigos Esportivos </title>
 </head>
 <body>
+    <!-- inicio cabeçalho  -->
     <header>
             <div class="logo">
                 <a href="/"><img src="imagens/logo-semfundo.jpg"></a>
@@ -66,10 +67,15 @@
                 <div></div>
             </label>
     </header>
+    <!-- fim cabeçalho  -->
+
+
+    <!-- banner de propaganda 1  -->
     <div class="advertising-1">
         
     </div>
 
+    <!-- baner para mostrar as marcas disponíveis no site  -->
     <div class="brands">
         <div class="title-brands">
             <p> Escolha a marca </p>
@@ -92,9 +98,13 @@
             </div>
         </div>
     </div>
+
+    <!-- banner de propaganda 2  -->
     <div class="advertising-2">
 
     </div>
+
+    <!-- baner para mostrar os times disponíveis no site  -->
     <div class="brands">
         <div class="title-brands">
             <p> Torça como nunca! </p>
@@ -122,6 +132,7 @@
         <h1> Destaques </h1>
     </div>
 
+    <!-- mostrar todos os produtos com a categoria "destaque" por meio de um for e um if para filtrar -->
     <div class="wrapper">
         <% for (const product of products) { %>
             <% if (product.categoria == 'destaque') { %>
@@ -136,6 +147,7 @@
                             <p> R$ <%= (product.price).toFixed(2)  %></p>
                         </div>        
                     <form method="POST" action="cart/add" class="comprar">
+                        <input type="hidden" name="quantity" value="1">
                         <input type="hidden" value="<%=product.id%>" name="product">
                         <div class="card-buy">
                             <% if(user) { %>

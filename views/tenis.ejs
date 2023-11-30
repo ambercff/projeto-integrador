@@ -7,6 +7,7 @@
     <title> Tigre - Artigos Esportivos </title>
 </head>
 <body>
+    <!-- inicio cabeçalho  -->
     <header>
         <div class="logo">
             <a href="/"><img src="imagens/logo-semfundo.jpg"></a>
@@ -66,7 +67,9 @@
             <div></div>
         </label>
 </header>
+<!-- fim cabeçalho  -->
 
+<!-- mostrar todos os produtos com a categoria "tenis" por meio de um for e um if para filtrar -->
     <div class="wrapper">
         <% for (const product of products) { %>
             <% if (product.categoria == 'tenis') { %>
@@ -96,6 +99,8 @@
             <% } %>
         <% } %>
     </div>
+
+    <!-- rodape  -->
     <footer>
         <div class="logo-footer">
             <img src="/imagens/logo_branca.png">

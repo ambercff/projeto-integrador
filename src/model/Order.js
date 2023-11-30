@@ -1,5 +1,8 @@
+//conexao com o banco
+
 const mongoose = require("mongoose");
 
+//esquema do endereco
 const addressSchema = mongoose.Schema({
     cidade: String,
     rua: String,
@@ -9,6 +12,7 @@ const addressSchema = mongoose.Schema({
     complemento: String
 });
 
+//esquema de cada pedido
 const orderSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -30,6 +34,8 @@ const orderSchema = mongoose.Schema({
     ]
 });
 
+//enviando ao banco o esquema
 const Order = mongoose.model('Order', orderSchema);
 
+//exportando o objeto "Order"
 module.exports = Order;

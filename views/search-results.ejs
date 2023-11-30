@@ -7,97 +7,100 @@
     <title> Tigre - Artigos Esportivos </title>
 </head>
 <body>
-<header>
-    <div class="logo">
-        <a href="/"><img src="imagens/logo-semfundo.jpg"></a>
-    </div>
-
-    <input type="checkbox" id="nav_check" hidden>
-    <nav>
-
+    <!-- inicio cabeçalho  -->
+    <header>
         <div class="logo">
             <a href="/"><img src="imagens/logo-semfundo.jpg"></a>
         </div>
 
-        <ul>
-            <li> <a href="jaquetas"> Jaquetas e Moletons </a> </li>
-            <li> <a href="tenis"> Tênis </a> </li>
-            <li> <a href="esportes"> Esportes </a> </li>
-            <li> <a href="products"> Todos os Produtos </a> </li>
-            <li>
-                <div class="search-bar">
-                    <div class="search-container">
-                        <form action="/search" method="GET">
-                            <input type="text" placeholder="Faça sua pesquisa" class="barra-pesquisa" name="q">
-                            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </form>
-                        <div class="hints"></div>
-                    </div>
-                </div>
-            </li>
-            <% if (!user) {%>
+        <input type="checkbox" id="nav_check" hidden>
+        <nav>
+
+            <div class="logo">
+                <a href="/"><img src="imagens/logo-semfundo.jpg"></a>
+            </div>
+
+            <ul>
+                <li> <a href="jaquetas"> Jaquetas e Moletons </a> </li>
+                <li> <a href="tenis"> Tênis </a> </li>
+                <li> <a href="esportes"> Esportes </a> </li>
+                <li> <a href="products"> Todos os Produtos </a> </li>
                 <li>
-                    <div class="icons">
-                        <a href="cart"> <i class="fa-solid fa-cart-shopping"></i> </a>
-                        <a href="login"> <i class="fa-regular fa-user"></i> </a>
-                    </div>
-                </li>
-            <% } %>
-            <% if (user) {%>
-                <li>
-                    <div class="icons">
-                        <a href="cart"> <i class="fa-solid fa-cart-shopping"></i> </a>
-                        <div class="logout">
-                            <p>Olá, <%= user.nome %>!</p>
-                            <form action="logout" method="POST">
-                                <button type="submit"><i class="fa-solid fa-right-from-bracket"></i></button>
+                    <div class="search-bar">
+                        <div class="search-container">
+                            <form action="/search" method="GET">
+                                <input type="text" placeholder="Faça sua pesquisa" class="barra-pesquisa" name="q">
+                                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                             </form>
+                            <div class="hints"></div>
                         </div>
                     </div>
                 </li>
+                <% if (!user) {%>
+                    <li>
+                        <div class="icons">
+                            <a href="cart"> <i class="fa-solid fa-cart-shopping"></i> </a>
+                            <a href="login"> <i class="fa-regular fa-user"></i> </a>
+                        </div>
+                    </li>
+                <% } %>
+                <% if (user) {%>
+                    <li>
+                        <div class="icons">
+                            <a href="cart"> <i class="fa-solid fa-cart-shopping"></i> </a>
+                            <div class="logout">
+                                <p>Olá, <%= user.nome %>!</p>
+                                <form action="logout" method="POST">
+                                    <button type="submit"><i class="fa-solid fa-right-from-bracket"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                <% } %>
+            </ul>
+
+
+        </nav>
+        <label for="nav_check" class="hamburguer">
+            <div></div>
+            <div></div>
+            <div></div>
+        </label>
+    </header>
+    <!-- fim cabeçalho  -->
+
+    <!-- mostra todos os resultados da pesquisa do usuário na barra de pesquisa  -->
+    <div class="search-results">
+        <h2>Resultados da Pesquisa para "<%= searchTerm %>"</h2>
+        <ul>
+        <div class="wrapper">
+            <% for (const result of results) { %>
+                <div class="item">
+                    <a href="product">
+                        <div class="item-img">
+                            <img src="./imagens/<%=result.image%> ">
+                        </div>
+                        <p> <%= result.name %>  </p>
+
+                        <div class="valor">
+                            <p> R$ <%= (result.price).toFixed(2)  %></p>
+                        </div>        
+                    </a>
+                    <form method="POST" action="cart/add" class="comprar">
+                        <input type="hidden" value="<%=result.id%>" name="result">
+                        <div class="card-buy">
+                            <% if(user) { %>
+                            <button type="submit" class="button-buy"> Comprar </button>
+                            <% } %>
+                            <% if(!user) { %>
+                                <button type="button" class="button-buy-lock" style="background-color: gray; opacity: 0.8; cursor: default;"> Comprar <i class="fa-solid fa-lock"></i> </button>
+                            <% } %>
+                        </div>
+                    </form>
+                </div>
             <% } %>
+        </div>
         </ul>
-
-
-    </nav>
-    <label for="nav_check" class="hamburguer">
-        <div></div>
-        <div></div>
-        <div></div>
-    </label>
-</header>
-
-<div class="search-results">
-    <h2>Resultados da Pesquisa para "<%= searchTerm %>"</h2>
-    <ul>
-    <div class="wrapper">
-        <% for (const result of results) { %>
-            <div class="item">
-                <a href="product">
-                    <div class="item-img">
-                        <img src="./imagens/<%=result.image%> ">
-                    </div>
-                    <p> <%= result.name %>  </p>
-
-                    <div class="valor">
-                        <p> R$ <%= (result.price).toFixed(2)  %></p>
-                    </div>        
-                </a>
-                <form method="POST" action="cart/add" class="comprar">
-                    <input type="hidden" value="<%=result.id%>" name="result">
-                    <div class="card-buy">
-                        <% if(user) { %>
-                        <button type="submit" class="button-buy"> Comprar </button>
-                        <% } %>
-                        <% if(!user) { %>
-                            <button type="button" class="button-buy-lock" style="background-color: gray; opacity: 0.8; cursor: default;"> Comprar <i class="fa-solid fa-lock"></i> </button>
-                        <% } %>
-                    </div>
-                </form>
-            </div>
-        <% } %>
     </div>
-    </ul>
-</div>
 </body>
 </html>
