@@ -15,7 +15,7 @@ router.get('/', async(req, res) => {
 
 //rota para a página login
 router.get('/login', (req, res) => {
-    res.render("login")
+    res.render("login", {erro: null})
 })
 
 //rota para a categoria "jaquetas"
@@ -72,9 +72,9 @@ router.get('/products', async(req,res) => {
 })
 
 
-//rota para a página de cadastro
+//rota para a página de cadastro 
 router.get('/cadastro', (req, res) => {
-    res.render("cadastro")
+    res.render("cadastro", { erro: null })
 })
 
 //rota para a página individual do produto, localizando-o através do id
@@ -106,22 +106,23 @@ router.get('/fale-conosco', (req, res) => {
 })
 
 //rota para realizar o cadastro do usuário
-router.post('/cadastro', async(req, res) => {
-    const {email, senha, nome, confSenha} = req.body;
+router.post('/cadastro', async (req, res) => {
+    const { email, senha, nome, confSenha } = req.body;
 
-    if (senha != confSenha) {
-        res.render('cadastro.ejs');
+    if (senha != confSenha || email == "" || senha == "" || nome == "" || confSenha == "") {
+        res.render("cadastro", { erro: "Verifique as informações e tente novamente" });
+        return;
     } else {
-        const user = new User({email, senha, nome});
-        try{
+        const user = new User({ email, senha, nome });
+        try {
             await user.save();
-            res.redirect("login")
-        }  catch (erro) {
-            console.log("Algo deu errado!")
+            res.redirect("login");
+        } catch (erro) {
+            res.render("erro", { erro: "Algo deu errado ao cadastrar! Verifique as informações e tente novamente" });
         }
     }
-
 });
+
 
 //rota para realizar o login do usuário
 router.post('/login', async(req, res) => {
@@ -140,6 +141,7 @@ router.post('/login', async(req, res) => {
         }
 
         if(!user) {
+            res.render("login", {erro: "Usuário e/ou senha incorreto(s). Favor verifique e tente novamente!"})
             return;
         }
     
