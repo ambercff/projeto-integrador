@@ -9,6 +9,57 @@
     list-style: none;
 }
 
+
+footer {
+    background-color: #172A3A;
+    color:#F5F5F5; 
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    height: 150px;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.logo-footer {
+    width: 250px;
+    height: 90px;
+}
+
+.logo-footer h1 {
+    width: 100%;
+    height: 100%;
+}
+
+.logo-footer p {
+    display: flex;
+    justify-content: center;
+}
+
+.instagram-footer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.instagram-footer i {
+    font-size: 20px;
+}
+
+.endereco-footer, .social-footer {
+    height: 70%;
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.endereco-footer { 
+    border-left: 1px solid #F5F5F5;
+    border-right: 1px solid #F5F5F5;
+    padding-left: 200px;
+    padding-right: 200px;
+}
+
 .search-bar input {
     flex: 1;
     width: 250px;
@@ -142,16 +193,14 @@ nav ul {
     background: white;
 }
 
-.advertising-1 {
+.advertising-1, .advertising-2 {
     width: 100%;
     height: 530px;
-    background-color: gray;
 }
 
-.advertising-2 {
+.advertising-1 img, .advertising-2 img {
     width: 100%;
-    height: 530px;
-    background-color: blue;
+    height: 100%;
 }
 
 .brands {

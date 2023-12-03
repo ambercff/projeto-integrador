@@ -18,6 +18,12 @@ router.get('/login', (req, res) => {
     res.render("login", {erro: null})
 })
 
+router.get('/tenis', async(req, res) => {
+    const user = await req.session.user
+    const products = await Product.find();
+    res.render("tenis", {user, products})
+})
+
 //rota para a categoria "jaquetas"
 router.get('/jaquetas', async(req, res) => {
     const user = await req.session.user
