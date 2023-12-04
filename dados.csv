@@ -1,3 +1,42 @@
-﻿Pedido,Cliente,Produto,Total,Endereço
-655e4d2d8110687c66620e44,Amber Forte,Chuteira Nike Mercurial Vapor 15 Club Futsal,449.99,
-655e4d928110687c66620e57,Amber Forte,CONJUNTO TRACKSUIT MASCULINO,439.9,
+﻿Pedido,Cliente,Produto,Total,Endereço,Quantidade
+6560faca512ed98e23bb3a47,Amber Forte,BLUSA MOLETOM ZÍPER CAPUZ ADIDAS ESSENTIALS,179.99,aaaaaaa aaa aaa 222 222 222,1
+6560fc7e99469fc9e785f2ea,Amber Forte,Camisa Nike Corinthians I 2023/24 Torcedor Pro Masculina,299.99,qq aaaa aaa 222 22 22,1
+6560fda40cc29011d01e484f,Amber Forte,Camisa Nike Corinthians I 2023/24 Torcedor Pro Masculina,299.99,bbbbbbb bbbbbbbbb bbbbbbbbbb 3333 2222 1111,1
+6560fdeed2462237392bda8a,Amber Forte,Chuteira Nike Mercurial Vapor 15 Club Futsal,449.99,ssss ssss sss 77777777 777 77,1
+65678f3027fcadf10d316ceb,Amber Forte,Chuteira Nike Mercurial Vapor 15 Club Futsal,449.99,a a a 2 2 2,1
+65678fb927fcadf10d316d12,Caio Farias,Camisa Masculina Umbro Santos Oficial 2 2023,179.9,Campinas Croata parque universitario 497 13056469 ,1
+6568b559887896f14b824197,Amber Forte,Chuteira Nike Mercurial Vapor 15 Club Futsal,449.99,campinas campinas campinas 2 2 2,1
+6568b9863353fea4fff5de05,Amber Forte,Chuteira Nike Mercurial Vapor 15 Club Futsal,449.99,a a a 2 2 2,1
+6568bcbbedc599ca9d63acb6,Amber Forte,Chuteira Nike Mercurial Vapor 15 Club Futsal,449.99,g g g 3 4 g,1
+6568bd69b6381680a9418379,Amber Forte,Chuteira Nike Mercurial Vapor 15 Club Futsal,449.99,b b b 3 3 b,1
+6568be5b5d93062478704364,Amber Forte,BLUSA MOLETOM ZÍPER CAPUZ ADIDAS ESSENTIALS,179.99,h h h 2 2 h,1
+6568c10dc7822f9b218812fc,Amber Forte,Camisa Nike Corinthians I 2023/24 Torcedor Pro Masculina,299.99,u u u 7 7 7,1
+6568c2fcebfd979757f7d780,Amber Forte,CONJUNTO TRACKSUIT MASCULINO,439.9,t t t 3 3 3,1
+6568c39c4fe63a47bf6a67d3,Amber Forte,BLUSA MOLETOM ZÍPER CAPUZ ADIDAS ESSENTIALS,179.99,o o o 0 0 0,1
+6568c4a5a33a38a81b143dab,Amber Forte,BLUSA MOLETOM ZÍPER CAPUZ ADIDAS ESSENTIALS,179.99,ç ç ç 9 9 9,1
+6568c501caf1d95acb1c8b36,Amber Forte,Camisa Masculina Umbro Santos Oficial 2 2023,179.9,y y y 7 77 7,1
+6568c564caf1d95acb1c8b4b,Amber Forte,CONJUNTO TRACKSUIT MASCULINO,439.9,r r r 5 5 5,1
+6568c5fc55774f2a027ef954,Amber Forte,Chuteira Nike Mercurial Vapor 15 Club Futsal,449.99,rr fefw sfsfs 222 2222 2222,1
+6568cad792681972a76fc74f,Amber Forte,Chuteira Nike Mercurial Vapor 15 Club Futsal,449.99,i i i 5 5 5,1
+6568cb9331e3d0cc682a8f31,Amber Forte,CONJUNTO TRACKSUIT MASCULINO,439.9,t t t 3 3 3,1
+6568cc509f357cd8dfd0108c,Amber Forte,BLUSA MOLETOM ZÍPER CAPUZ ADIDAS ESSENTIALS,179.99,e e e 2 2 2,1
+6568ccca942ee3bb19658c2c,Amber Forte,Camisa Nike Corinthians I 2023/24 Torcedor Pro Masculina,299.99,w w w 2 2 2,1
+6568cd0c942ee3bb19658c42,Amber Forte,Chuteira Nike Mercurial Vapor 15 Club Futsal,449.99,q q q 1 1 1,1
+6568cd4d13dea6a6f3aa09db,Amber Forte,Camisa Nike Corinthians I 2023/24 Torcedor Pro Masculina,299.99,e e e 4 4 4,2
+6568cd9413dea6a6f3aa0a1a,Admin,Camisa Masculina Umbro Santos Oficial 2 2023,179.9,s s s 22 222 2222222,2
+6568cd9413dea6a6f3aa0a1a,Admin,Jaqueta Nike Club Hoodie Masculina,339.99,s s s 22 222 2222222,1
+6568cdd313dea6a6f3aa0a5b,Amber Forte,BLUSA MOLETOM ZÍPER CAPUZ ADIDAS ESSENTIALS,179.99,t t t 4 4 4,2
+6568cdd313dea6a6f3aa0a5b,Amber Forte,Camisa Masculina Umbro Santos Oficial 2 2023,179.9,t t t 4 4 4,2
+6568cee2a476dd4b3ae21f0b,Amber Forte,Camisa Masculina Umbro Santos Oficial 2 2023,179.9,r r r 6 6 6,1
+6568cee2a476dd4b3ae21f0b,Amber Forte,BLUSA MOLETOM ZÍPER CAPUZ ADIDAS ESSENTIALS,179.99,r r r 6 6 6,1
+6568d5428831da9717671a43,Amber Forte,BLUSA MOLETOM ZÍPER CAPUZ ADIDAS ESSENTIALS,179.99,w w w 2 2 w,1
+6568d5eaf4a1186114c8e63d,Amber Forte,BLUSA MOLETOM ZÍPER CAPUZ ADIDAS ESSENTIALS,179.99,a a a 1 1 1,1
+6568d5eaf4a1186114c8e63d,Amber Forte,Camisa Masculina Umbro Santos Oficial 2 2023,179.9,a a a 1 1 1,1
+6568d63bc56bf081eaf110c7,Amber Forte,BLUSA MOLETOM ZÍPER CAPUZ ADIDAS ESSENTIALS,179.99,s s s 1 1 1,3
+6568d63bc56bf081eaf110c7,Amber Forte,CONJUNTO TRACKSUIT MASCULINO,439.9,s s s 1 1 1,2
+6568d693c56bf081eaf11124,Amber Forte,Camisa Nike Corinthians I 2023/24 Torcedor Pro Masculina,299.99,a a a 2 2 2,2
+6568d693c56bf081eaf11124,Amber Forte,CONJUNTO TRACKSUIT MASCULINO,439.9,a a a 2 2 2,1
+6568d693c56bf081eaf11124,Amber Forte,Chuteira Nike Mercurial Vapor 15 Club Futsal,449.99,a a a 2 2 2,3
+6568d693c56bf081eaf11124,Amber Forte,BLUSA MOLETOM ZÍPER CAPUZ ADIDAS ESSENTIALS,179.99,a a a 2 2 2,2
+6568d7c4c56bf081eaf11176,Amber Forte,BLUSA MOLETOM ZÍPER CAPUZ ADIDAS ESSENTIALS,179.99,campinas rua bairro 2 2131 11,2
+656a05e8f13404cf055eb2c6,Amber Forte,Chuteira Nike Mercurial Vapor 15 Club Futsal,449.99,gg gg gg 22 2 22,3

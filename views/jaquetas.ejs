@@ -67,10 +67,11 @@
             <div></div>
         </label>
 </header>
-<!-- fim cabeçalho  -->
 
+<!-- fim cabeçalho  -->
+<main>
 <!-- mostrar todos os produtos com a categoria "jaqueta" ou "moletom" por meio de um for e um if para filtrar -->
-    <div class="wrapper">
+    <section class="wrapper">
         <% for (const product of products) { %>
             <% if (product.categoria == 'jaqueta' || product.categoria == 'moletom') { %>
                 <div class="item">
@@ -99,7 +100,8 @@
                 </div>
             <% } %>
         <% } %>
-    </div>
+    </section>
+</main>
     <!-- rodapé  -->
     <footer>
         <div class="logo-footer">

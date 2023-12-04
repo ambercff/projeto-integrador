@@ -71,78 +71,79 @@
 </header>
 
 <!-- fim cabeçalho  -->
-
+<main>
 <!-- carregar os itens do carrinho do usuario por meio de um for  -->
-<% let total = 0; %> 
-<div class="column-product">
-    <% if (user.cart.compras.length === 0) { %>
-        <div class="cart-empty">
-            <p> O carrinho está vazio!</p>
-            <i class="fa-regular fa-rectangle-xmark"></i>
-        </div>
-    </div>
-    <% } else {%>
-        <% for (const compra of user.cart.compras) { %>
-            <div class="container-product">
-                <div class="infos-product">                   
-                    <div class="img-product">
-                        <img src="./imagens/<%=compra.product.image%>">
-                    </div>
-                    <div class="text-product">
-                        <div class="title-product">
-                            <h1> <%=compra.product.name%></h1>
+    <% let total = 0; %> 
+    <section class="column-product">
+        <% if (user.cart.compras.length === 0) { %>
+            <div class="cart-empty">
+                <p> O carrinho está vazio!</p>
+                <i class="fa-regular fa-rectangle-xmark"></i>
+            </div>
+    </section>
+        <% } else {%>
+            <% for (const compra of user.cart.compras) { %>
+                <section class="container-product">
+                    <div class="infos-product">                   
+                        <div class="img-product">
+                            <img src="./imagens/<%=compra.product.image%>">
                         </div>
-                        <div class="price-product">
-                            <p class="price"> R$ <%= (compra.product.price).toFixed(2) %></p>
-                            <% total += compra.product.price * compra.quantity; %>
-                            <div class="forma-pagamento">
-                                <p> em até 6x sem juros de R$ <%= (compra.product.price / 6).toFixed(2) %></p>
-                                <p class="text-blue"> formas de pagamento </p>
+                        <div class="text-product">
+                            <div class="title-product">
+                                <h1> <%=compra.product.name%></h1>
                             </div>
-                            <form method="POST" action="/cart/update-quantity/<%= compra._id %>">
-                                <div class="qtde">
-                                    <p> Quantidade: 
-                                        <input type="number" name="quantity" value="<%= compra.quantity %>" min="1">
-                                        <button type="submit">Atualizar</button>
-                                    </p>
+                            <div class="price-product">
+                                <p class="price"> R$ <%= (compra.product.price).toFixed(2) %></p>
+                                <% total += compra.product.price * compra.quantity; %>
+                                <div class="forma-pagamento">
+                                    <p> em até 6x sem juros de R$ <%= (compra.product.price / 6).toFixed(2) %></p>
+                                    <p class="text-blue"> formas de pagamento </p>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="remove-product">
-                            <form method="POST" action="cart/remove">
-                                <input type="hidden" value="<%=compra._id%>" name="productId">
-                                <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
-                            </form>
+                                <form method="POST" action="/cart/update-quantity/<%= compra._id %>">
+                                    <div class="qtde">
+                                        <p> Quantidade: 
+                                            <input type="number" name="quantity" value="<%= compra.quantity %>" min="1">
+                                            <button type="submit">Atualizar</button>
+                                        </p>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="remove-product">
+                                <form method="POST" action="cart/remove">
+                                    <input type="hidden" value="<%=compra._id%>" name="productId">
+                                    <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                                </form>
+                            </div>
                         </div>
                     </div>
+                </section>
+            <% } %>
+            
+            
+            <section class="container-teste">
+                <div class="container-frete">
+                    <p> Calcule seu frete </p>
+                    <div class="box-frete">
+                        <input type="text" class="cep" placeholder="CEP">
+                        <a href="#"> Não sei meu CEP </a>
+                    </div>
                 </div>
-            </div>
-        <% } %>
-        
-        
-        <div class="container-teste">
-            <div class="container-frete">
-                <p> Calcule seu frete </p>
-                <div class="box-frete">
-                    <input type="text" class="cep" placeholder="CEP">
-                    <a href="#"> Não sei meu CEP </a>
+                <div class="container-total">
+                    <p class="total"> Total: R$ <%= total.toFixed(2) %> </p>
                 </div>
+            </section>
+        <form method="POST" action="endereco">
+            <% for (const compra of user.cart.compras) { %>
+                <input type="hidden" name="qtde_produto" value="<%= compra.quantity %>">
+                <%= console.log(compra.quantity) %>
+            <% } %>
+            <div class="btn-cart">
+                    <button type="submit"> Concluir Compra </button>
             </div>
-            <div class="container-total">
-                <p class="total"> Total: R$ <%= total.toFixed(2) %> </p>
-            </div>
-        </div>
-    <form method="POST" action="endereco">
-        <% for (const compra of user.cart.compras) { %>
-            <input type="hidden" name="qtde_produto" value="<%= compra.quantity %>">
-            <%= console.log(compra.quantity) %>
+        </form>
         <% } %>
-        <div class="btn-cart">
-                <button type="submit"> Concluir Compra </button>
-        </div>
-    </form>
-    <% } %>
-</div>
+    </section>
+</main>
 <!-- rodape  -->
     <footer>
         <div class="logo-footer">

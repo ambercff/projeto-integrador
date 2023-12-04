@@ -11,25 +11,30 @@
     <!-- inicio cabeçalho  -->
     <header>
         <div class="logo">
-            <img src="imagens/logo-semfundo.jpg">
+            <a href="/"><img src="imagens/logo-semfundo.jpg"></a>
         </div>
 
         <input type="checkbox" id="nav_check" hidden>
         <nav>
 
             <div class="logo">
-                <img src="imagens/logo-semfundo.jpg">
+                <a href="/"><img src="imagens/logo-semfundo.jpg"></a>
             </div>
 
             <ul>
                 <li> <a href="jaquetas"> Jaquetas e Moletons </a> </li>
                 <li> <a href="tenis"> Tênis </a> </li>
-                <li> <a href="#"> Esportes </a> </li>
+                <li> <a href="esportes"> Esportes </a> </li>
                 <li> <a href="products"> Todos os Produtos </a> </li>
                 <li>
                     <div class="search-bar">
-                    <input type="text" placeholder="Pesquisar">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                        <div class="search-container">
+                            <form action="/search" method="GET">
+                                <input type="text" placeholder="Faça sua pesquisa" class="barra-pesquisa" name="q">
+                                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </form>
+                            <div class="hints"></div>
+                        </div>
                     </div>
                 </li>
                 <% if (!user) {%>
@@ -63,41 +68,43 @@
             <div></div>
         </label>
 </header>
+
 <!-- fim cabeçalho  -->
-
+<main>
 <!-- formulario para usuario colocar as informações de endereço  -->
-<form method="POST" action="cart/finish">
-    <h1> Cadastre o endereço de entrega </h1>
-    <div class="container-endereco">
+    <form method="POST" action="cart/finish">
+        <h1> Cadastre o endereço de entrega </h1>
+        <section class="container-endereco">
 
-        <div class="input-endereco-left">
+            <div class="input-endereco-left">
 
-            <label> Cidade </label>
-            <input type="text" name="cidade" required> 
+                <label> Cidade </label>
+                <input type="text" name="cidade" required> 
 
-            <label> Rua </label>
-            <input type="text" name="rua" required> 
+                <label> Rua </label>
+                <input type="text" name="rua" required> 
 
-            <label> Bairro </label>
-            <input type="text" name="bairro" required> 
-        </div>
+                <label> Bairro </label>
+                <input type="text" name="bairro" required> 
+            </div>
 
-        <div class="input-endereco-right">
-            <label> N° </label>
-            <input type="number" name="num" required> 
+            <div class="input-endereco-right">
+                <label> N° </label>
+                <input type="number" name="num" required> 
 
-            <label> CEP </label>
-            <input type="number" name="cep" required> 
+                <label> CEP </label>
+                <input type="number" name="cep" required> 
 
-            <label> Complemento </label>
-            <input type="text" name="complemento"> 
-        </div>
-    </div>
+                <label> Complemento </label>
+                <input type="text" name="complemento"> 
+            </div>
+        </section>
 
-        <div class="btn">
-            <button> Finalizar </button>
-        </div>
+            <div class="btn">
+                <button> Finalizar </button>
+            </div>
     </form>
+</main>
 
     <!-- rodape  -->
     <footer>

@@ -19,10 +19,22 @@ if response.status_code == 200:
             cliente = order['user']['nome']
             produto = compra['product']['name']
             total = compra['product']['price']
-            endereco = order.get('endereco', '')  # Se 'endereco' não estiver presente, use uma string vazia
+            endereco_parts = [
+                str(compra['endereco']['cidade']),
+                str(compra['endereco']['rua']),
+                str(compra['endereco']['bairro']),
+                str(compra['endereco']['numero']),
+                str(compra['endereco']['cep']),
+                str(compra['endereco']['complemento'])
+            ]
+            
+            endereco = ' '.join(endereco_parts)
+
+            endereco = ' '.join(endereco_parts)
+            qtde = compra['quantity']
 
             # Adicionar dados à lista
-            extracted_data.append({'Pedido': pedido, 'Cliente': cliente, 'Produto': produto, 'Total': total, 'Endereço': endereco})
+            extracted_data.append({'Pedido': pedido, 'Cliente': cliente, 'Produto': produto, 'Total': total, 'Endereço': endereco, 'Quantidade': qtde})
 
     # Criar um DataFrame do Pandas
     df = pd.DataFrame(extracted_data)

@@ -68,11 +68,12 @@
             <div></div>
         </label>
 </header>
+
 <!-- fim cabeçalho  -->
 
-
+<main>
 <!-- filtros  -->
-    <div class="filters">
+    <section class="filters">
         <div class="filter-icon">
             <i class="fa-solid fa-sliders"></i>
             <p> Filtros </p>
@@ -116,10 +117,10 @@
               <option value="audi"> Mizuno </option>
             </select>
           </form>
-    </div>
+    </section>
 
     <!-- mostrar todos os produtos por meio de um for -->
-    <div class="wrapper">
+    <section class="wrapper">
         <% for (const product of products) { %>
             <div class="item">
                 <a href="/product/<%= product.id %>">
@@ -145,8 +146,8 @@
                 </a>
             </div>
         <% } %>
-    </div>
-
+    </section>
+</main>
     <footer>
         <div class="logo-footer">
             <h1> Trigue </h1>

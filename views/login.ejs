@@ -12,38 +12,40 @@
         <script>alert("<%= erro %>");</script>
     <% } %>
     <!-- form para usuario colocar as informações para logar -->
-    <div class="main-login">
-        <div class="left-login">
-           <img src="/imagens/logo-deitada-semfundo.jpg">
-        </div>
-        <div class="right-login">
-            <div class="card-login">
-                <h1> LOGIN </h1>
-                <form action="login" method="POST">
-                    <div class="container-input">
-                    <div class="textfield">
-                            <label for="email"> E-mail </label>
-                            <input type="email" name="email" placeholder="Insira seu e-mail" autocomplete="off">
-                        </div>
-                    
-                        <div class="textfield">
-                            <label for="senha"> Senha </label>
-                            <input type="password" name="senha" placeholder="Insira sua senha" autocomplete="off">
-                        </div>  
-                    </div>
-                    
-                    <div class="container-btn">
-                        <input type="submit" class="btn-login" value="Login">  
-                    </div>
-
-                    <div class="informations">
-                        <p> Não tem uma conta? <a href="cadastro"> Cadastre-se </a> </p>
-                        <a href="/"> Voltar para home </a></p>
-                    </div>
-                </form>
-
+    <main>
+        <section class="main-login">
+            <div class="left-login">
+            <img src="/imagens/logo-deitada-semfundo.jpg">
             </div>
-        </div>
-    </div>
+            <div class="right-login">
+                <div class="card-login">
+                    <h1> LOGIN </h1>
+                    <form action="login" method="POST">
+                        <div class="container-input">
+                        <div class="textfield">
+                                <label for="email"> E-mail </label>
+                                <input type="email" name="email" placeholder="Insira seu e-mail" autocomplete="off">
+                            </div>
+                        
+                            <div class="textfield">
+                                <label for="senha"> Senha </label>
+                                <input type="password" name="senha" placeholder="Insira sua senha" autocomplete="off">
+                            </div>  
+                        </div>
+                        
+                        <div class="container-btn">
+                            <input type="submit" class="btn-login" value="Login">  
+                        </div>
+
+                        <div class="informations">
+                            <p> Não tem uma conta? <a href="cadastro"> Cadastre-se </a> </p>
+                            <a href="/"> Voltar para home </a></p>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

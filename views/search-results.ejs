@@ -66,14 +66,15 @@
             <div></div>
             <div></div>
         </label>
-    </header>
-    <!-- fim cabeçalho  -->
+</header>
 
+    <!-- fim cabeçalho  -->
+<main>
     <!-- mostra todos os resultados da pesquisa do usuário na barra de pesquisa  -->
-    <div class="search-results">
+    <section class="search-results">
         <h2>Resultados da Pesquisa para "<%= searchTerm %>"</h2>
         <ul>
-        <div class="wrapper">
+        <section class="wrapper">
             <% for (const result of results) { %>
                 <div class="item">
                     <a href="product">
@@ -99,8 +100,9 @@
                     </form>
                 </div>
             <% } %>
-        </div>
+        </section>
         </ul>
-    </div>
+    </section>
+</main>
 </body>
 </html>

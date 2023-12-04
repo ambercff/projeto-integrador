@@ -12,32 +12,37 @@
     <!-- inicio cabeçalho -->
     <header>
         <div class="logo">
-            <a href="/"><img src="/imagens/logo-semfundo.jpg"></a>
+            <a href="/"><img src="imagens/logo-semfundo.jpg"></a>
         </div>
 
         <input type="checkbox" id="nav_check" hidden>
         <nav>
 
             <div class="logo">
-                <a href="/"><img src="/imagens/logo-semfundo.jpg"></a>
+                <a href="/"><img src="imagens/logo-semfundo.jpg"></a>
             </div>
 
             <ul>
-                <li> <a href="/jaquetas"> Jaquetas e Moletons </a> </li>
-                <li> <a href="/tenis"> Tênis </a> </li>
-                <li> <a href="#"> Esportes </a> </li>
-                <li> <a href="/products"> Todos os Produtos </a> </li>
+                <li> <a href="jaquetas"> Jaquetas e Moletons </a> </li>
+                <li> <a href="tenis"> Tênis </a> </li>
+                <li> <a href="esportes"> Esportes </a> </li>
+                <li> <a href="products"> Todos os Produtos </a> </li>
                 <li>
                     <div class="search-bar">
-                    <input type="text" placeholder="Pesquisar">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                        <div class="search-container">
+                            <form action="/search" method="GET">
+                                <input type="text" placeholder="Faça sua pesquisa" class="barra-pesquisa" name="q">
+                                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </form>
+                            <div class="hints"></div>
+                        </div>
                     </div>
                 </li>
                 <% if (!user) {%>
                     <li>
                         <div class="icons">
-                            <a href="/cart"> <i class="fa-solid fa-cart-shopping"></i> </a>
-                            <a href="/login"> <i class="fa-regular fa-user"></i> </a>
+                            <a href="cart"> <i class="fa-solid fa-cart-shopping"></i> </a>
+                            <a href="login"> <i class="fa-regular fa-user"></i> </a>
                         </div>
                     </li>
                 <% } %>
@@ -47,7 +52,7 @@
                             <a href="cart"> <i class="fa-solid fa-cart-shopping"></i> </a>
                             <div class="logout">
                                 <p>Olá, <%= user.nome %>!</p>
-                                <form action="/logout" method="POST">
+                                <form action="logout" method="POST">
                                     <button type="submit"><i class="fa-solid fa-right-from-bracket"></i></button>
                                 </form>
                             </div>
@@ -64,10 +69,12 @@
             <div></div>
         </label>
 </header>
+
 <!-- fim cabeçalho  -->
 
+<main>
 <!-- informações do produto individual  -->
-    <div class="produto">
+    <section class="produto">
         <div class="imagem-produto">
             <img src="../imagens/<%=product.image%> ">
         </div>
@@ -98,7 +105,7 @@
                         
                     </div>
             
-                    <div class="container-frete">
+                    <section class="container-frete">
                         <p>Calcule seu frete</p>
                         <div class="box-frete">
                             <form id="cep-form">
@@ -109,7 +116,7 @@
 
                             </div>
                         </div>
-                    </div>
+                    </section>
                     
 
 
@@ -131,14 +138,15 @@
                 </div>
             </form>
         </div>  
-    </div>
+    </section>
+</main>
 
     <!-- mostrar todos os produtos com a categoria "destaque" por meio de um for e um if para filtrar -->
 
     <div class="title-wrapper">
         <h1> Outros produtos: </h1>
-    </div>
-    <div class="wrapper" style="justify-content: space-evenly; margin-top: 30px;">
+    </section>
+    <section class="wrapper" style="justify-content: space-evenly; margin-top: 30px;">
         <% for (const product of products) { %>
             <% if (product.categoria == 'destaque') { %>
             <div class="item">
@@ -166,7 +174,8 @@
             </div>
             <% } %>
         <% } %>
-    </div>
+    </section>
+    
 
     <!-- rodape  -->
     <footer>
