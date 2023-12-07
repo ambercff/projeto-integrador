@@ -280,7 +280,7 @@ router.post('/cart/finish', async (req, res) => {
             return res.status(404).send("Usuário não encontrado ou carrinho vazio.");
         }
         
-        const {cidade, rua, bairro, num, cep, complemento} = req.body; 
+        const {cidade, rua, bairro, num, cep, complemento, estado} = req.body; 
 
         const endereco = {
             cidade: cidade,
@@ -288,7 +288,8 @@ router.post('/cart/finish', async (req, res) => {
             bairro: bairro,
             numero: num,
             cep: cep,
-            complemento: complemento
+            complemento: complemento,
+            estado: estado
         };
 
         for (const compra of user.cart.compras) {

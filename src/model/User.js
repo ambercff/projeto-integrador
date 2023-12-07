@@ -8,7 +8,8 @@ const addressSchema = mongoose.Schema({
     bairro: String,
     numero: Number,
     cep: Number,
-    complemento: String
+    complemento: String, 
+    estado: String
 });
 
 //esquema do usuario

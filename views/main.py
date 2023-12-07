@@ -1,18 +1,17 @@
 import requests
 import pandas as pd
 
-# Faça a solicitação Ajax para obter os dados
-url = 'http://localhost:3131/admin/orders'  # Substitua pelo URL correto
+url = 'http://localhost:3131/admin/orders' 
 response = requests.get(url)
 
-# Verifique se a solicitação foi bem-sucedida
+#verifica se deu certo
 if response.status_code == 200:
     data = response.json()
 
-    # Lista para armazenar os dados
+    #lista para armazenar os dados
     extracted_data = []
 
-    # Extrair dados
+    #for para extrair os dados
     for order in data['orders']:
         for compra in order['compras']:
             pedido = order['_id']
@@ -33,21 +32,22 @@ if response.status_code == 200:
             endereco = ' '.join(endereco_parts)
             qtde = compra['quantity']
 
-            # Adicionar dados à lista
+            #adiciona a lista
             extracted_data.append({'Pedido': pedido, 'Cliente': cliente, 'Produto': produto, 'Total': total, 'Endereço': endereco, 'Quantidade': qtde})
 
-    # Criar um DataFrame do Pandas
     df = pd.DataFrame(extracted_data)
 
-    # Salvar em CSV
+    #extrai para csv
     df.to_csv('dados.csv', index=False, encoding='utf-8-sig')
 
-    # Salvar em XLSX (Excel)
+    #extrai para xlsx
     df.to_excel('dados.xlsx', index=False)
 
-    # Salvar em JSON
+    #extrai para json
     df.to_json('dados.json', orient='records', lines=True, force_ascii=False)
 
+    #informa se deu certo
     print('Dados salvos com sucesso!')
 else:
+    #informa se deu algo errado
     print(f'Falha na solicitação: {response.status_code}')
